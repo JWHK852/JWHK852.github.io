@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>虛擬貨幣1-BTC密碼學原理</title>
+      <link href="2021/05/27/cryptocurrency1/"/>
+      <url>2021/05/27/cryptocurrency1/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="cryptographic-hash-function"><a class="markdownIt-Anchor" href="#cryptographic-hash-function"></a> Cryptographic hash function</h1><h2 id="性質"><a class="markdownIt-Anchor" href="#性質"></a> 性質</h2><h3 id="collision-resistance"><a class="markdownIt-Anchor" href="#collision-resistance"></a> Collision resistance</h3><ul><li><code>Collision resistance</code> 指 <code>哈希碰撞</code><ul><li><code>x != y</code> 但是 <code>H(X) = H(Y)</code></li></ul></li></ul><h4 id="碰撞方法"><a class="markdownIt-Anchor" href="#碰撞方法"></a> 碰撞方法</h4><ul><li><code>Brute-force</code> 指蠻力破解，遍歷所有取值，碰撞哈希值</li></ul><h4 id="篡改可以被檢測"><a class="markdownIt-Anchor" href="#篡改可以被檢測"></a> 篡改可以被檢測</h4><ul><li><code>H(m)</code> 被篡改為 <code>H(m')</code> 無法達到哈希碰撞</li><li></li></ul><h4 id="md5"><a class="markdownIt-Anchor" href="#md5"></a> MD5</h4><ul><li>一個可以被人為製造碰撞的<code>Hash function</code>，所以是不安全的</li></ul><h3 id="hiding"><a class="markdownIt-Anchor" href="#hiding"></a> Hiding</h3><ul><li>哈希函數過程是單向的，不可逆的<ul><li><code>x -&gt; H(x)</code>，但<code>H(x) -/-&gt; x</code></li><li>可與<code>Collision resistance</code> 形成 <code>Digital commitment / Digital equivalent of a sealed envelope</code></li></ul></li></ul><h4 id="sealed-envelope"><a class="markdownIt-Anchor" href="#sealed-envelope"></a> Sealed Envelope</h4><ul><li>例子： 一個人預測某股票明天跌停，將結果寫在信封交給第三方公證機構，以確保第二天收盤打開驗證結果，以確保結果未被篡改</li></ul><h4 id="digital-sealed-envelope"><a class="markdownIt-Anchor" href="#digital-sealed-envelope"></a> Digital Sealed Envelope</h4><ul><li><code>x</code>算出哈希值<code>H(x)</code>，公佈哈希值，因為有Hiding性質，所以無法知道<code>x</code>結果，公佈的時候便能確保沒被篡改</li><li>為增加範圍，會與x後拼接一個nonce（一個隨機數），哈希值為<code>H(x||nonce)</code> 確保輸入隨機，分佈均勻</li></ul><h3 id="puzzle-friendly"><a class="markdownIt-Anchor" href="#puzzle-friendly"></a> Puzzle friendly</h3><ul><li>比特幣特有的特質，表示挖礦的過程沒有捷徑只能靠大量遍歷<code>nonce</code>才能找到符合要求的解，所以這個過程才能作為<code>工作量證明Proof of work</code></li><li><code>H(x)</code>事先無法預測，想要哈希值落在某個範圍之內，只能遍歷找到答案<ul><li>e.g：需要一個哈希值，前面k位都是0(00…0xxx…x)</li></ul></li><li>挖礦實際上就是找<code>nonce</code>，與<code>區塊塊頭block header</code>合為一體作為輸入取出哈希值，<code>hash</code>需要小於等於某個指定的<code>目標域值</code><ul><li><code>H(block header)&lt;=target</code></li></ul></li><li>比特幣是<code>區塊鏈</code>，即是<code>一個個區塊組成的鏈表</code>，每個區塊有一個<code>block header</code>，內含多個域，其中有一個域為設置的隨機數<code>nonce</code>，挖礦的過程就是試不同的隨機數，使得整個<code>block header</code>取<code>hash</code>，落在一個指定範圍，小於等於<code>target space</code><br /><img src="https://raw.githubusercontent.com/JWHK852/image/master/20210528002142.png" alt="" /></li></ul><h4 id="difficult-to-solve-but-easy-to-verify"><a class="markdownIt-Anchor" href="#difficult-to-solve-but-easy-to-verify"></a> Difficult to solve but easy to verify</h4><ul><li>雖然挖礦過程需要很多工作量才能找到<code>nonce</code>，但一旦有人找到<code>nonce</code>，其他人驗證只需算一次哈希值即可驗證哈希值正確與否，這種性質稱為<code>Difficult to solve but easy to verify</code></li></ul><h2 id="sha-256"><a class="markdownIt-Anchor" href="#sha-256"></a> SHA-256</h2><ul><li>比特幣所使用的哈希函數</li><li>SHA為<code>Secure Hash Algorithm</code>，滿足三個性質，<code>Collision resistance</code>，<code>Hiding</code>，<code>Puzzle friendly</code></li></ul><h1 id="簽名"><a class="markdownIt-Anchor" href="#簽名"></a> 簽名</h1><h2 id="比特幣賬戶管理"><a class="markdownIt-Anchor" href="#比特幣賬戶管理"></a> 比特幣賬戶管理</h2><ul><li>日常開賬戶：一種<code>中心化系統賬戶管理方式</code>，帶相關證明前往銀行開賬戶</li><li>比特幣賬戶：一種<code>去中心化系統賬戶管理方式</code>，每個用戶自己開賬戶，不需要任何人批准，只需創立一對<code>公鑰public key</code>與<code>私鑰private key</code>,<code>(public key,private key)</code>便能在比特幣中代表一個賬戶</li></ul><h3 id="公私鑰"><a class="markdownIt-Anchor" href="#公私鑰"></a> 公私鑰</h3><ul><li>概念來源於<code>非對稱加密體系Asymmetric encryption algorithm</code></li></ul><h4 id="對稱加密體系"><a class="markdownIt-Anchor" href="#對稱加密體系"></a> 對稱加密體系</h4><ul><li><code>對稱加密體系symmetric encryption algorithm</code></li><li>兩人進行通訊，過程可能被監聽，於是會加密信息後，有一組<code>秘鑰encryption key</code>用於解密信息，由於加密解密用的是同一個秘鑰，於是稱為<code>對稱加密體系</code>，前提是有安全的渠道分發給通訊雙方，因為不可能以明文方式與網絡發放，有被竊聽的風險，所以秘鑰分發不方便為對稱加密體系的弱點</li></ul><h4 id="非對稱加密體系"><a class="markdownIt-Anchor" href="#非對稱加密體系"></a> 非對稱加密體系</h4><ul><li>解決<code>對稱加密體系</code>的<code>秘鑰分發不方便</code>的缺點</li><li>不使用一個秘鑰，而是一個<code>公鑰</code>和<code>私鑰</code>，加密用公鑰，解密用私鑰<ul><li>e.g：A要與B通訊，A用B的<code>公鑰</code>加密信息，B用自己的<code>私鑰</code>解密信息</li></ul></li><li>好處：公鑰<code>無需保密</code>，私鑰<code>需要保密</code>但是<code>只需保存在本地</code></li><li>公鑰相等於銀行賬戶，私鑰相等於賬戶密碼</li></ul><h2 id="簽名驗證"><a class="markdownIt-Anchor" href="#簽名驗證"></a> 簽名驗證</h2><ul><li>雖然比特幣是不加密的，但是為防止冒名頂替，需要用<code>私鑰</code>對交易<code>簽名</code>，其他人使用<code>公鑰``驗證簽名的正確性</code></li></ul><h2 id="隨機源"><a class="markdownIt-Anchor" href="#隨機源"></a> 隨機源</h2><ul><li>需要選取一個好的隨機源<code>A good source randomness</code>，否則可能出現兩個同樣的公私鑰</li><li>比特幣不止在<code>生成公私鑰</code>有好的隨機源，在之後每次<code>簽名</code>也有好的隨機源，只要有一次隨機源<code>不好</code>，就有可能<code>洩露私鑰</code></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 虛擬貨幣 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 密碼學 </tag>
+            
+            <tag> 虛擬貨幣 </tag>
+            
+            <tag> 以太坊 </tag>
+            
+            <tag> 比特幣 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Django1-簡介</title>
       <link href="2021/05/15/django1/"/>
       <url>2021/05/15/django1/</url>
