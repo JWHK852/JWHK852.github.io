@@ -1,0 +1,834 @@
+<!DOCTYPE html><html lang="zh-TW" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Python47-Mysql | D.VaGary</title><meta name="keywords" content="Python,MySQL,數據庫"><meta name="author" content="D.VaGary"><meta name="copyright" content="D.VaGary"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="數據庫簡介  概念  計算機誕生後，數據開始在計算機內儲存並計算，並設計出了數據庫系統 數據庫解決的問題  持久化儲存 優化讀寫 保證數據的有效性   當前使用的數據庫主要分為兩類  文檔型  例如sqlite，通過對文件的複製完成數據庫的複製 例如mysql，postgre，數據儲存在一個物理文件中，但是需要終端以tcp&#x2F;ip協議連接，進行數據庫的讀寫操作       三範式  經過研究和對使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python47-Mysql">
+<meta property="og:url" content="https://blog.dvagary.com/2020/08/30/python47/index.html">
+<meta property="og:site_name" content="D.VaGary">
+<meta property="og:description" content="數據庫簡介  概念  計算機誕生後，數據開始在計算機內儲存並計算，並設計出了數據庫系統 數據庫解決的問題  持久化儲存 優化讀寫 保證數據的有效性   當前使用的數據庫主要分為兩類  文檔型  例如sqlite，通過對文件的複製完成數據庫的複製 例如mysql，postgre，數據儲存在一個物理文件中，但是需要終端以tcp&#x2F;ip協議連接，進行數據庫的讀寫操作       三範式  經過研究和對使">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://raw.githubusercontent.com/JWHK852/image/master/mysqlpy.png">
+<meta property="article:published_time" content="2020-08-30T14:16:51.000Z">
+<meta property="article:modified_time" content="2020-09-02T09:29:22.961Z">
+<meta property="article:author" content="D.VaGary">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="數據庫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/JWHK852/image/master/mysqlpy.png"><link rel="shortcut icon" href="/img/icon.png"><link rel="canonical" href="https://blog.dvagary.com/2020/08/30/python47/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查詢的內容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '複製成功',
+    error: '複製錯誤',
+    noSupport: '瀏覽器不支援'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '剛剛',
+    min: '分鐘前',
+    hour: '小時前',
+    day: '天前',
+    month: '個月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切換為繁體","cht_to_chs":"你已切換為簡體","day_to_night":"你已切換為深色模式","night_to_day":"你已切換為淺色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Python47-Mysql',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-09-02 17:29:22'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><script src="../live2d-widget/autoload.js"></script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">載入中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">102</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">39</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">5</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 檔案室</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 關於我</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娛樂</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 遊戲</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相冊</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 電影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 鏈接區</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://raw.githubusercontent.com/JWHK852/image/master/mysqlpy.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">D.VaGary</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜尋</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 檔案室</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 關於我</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娛樂</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 遊戲</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相冊</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 電影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 鏈接區</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python47-Mysql</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">發表於</span><time class="post-meta-date-created" datetime="2020-08-30T14:16:51.000Z" title="發表於 2020-08-30 22:16:51">2020-08-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新於</span><time class="post-meta-date-updated" datetime="2020-09-02T09:29:22.961Z" title="更新於 2020-09-02 17:29:22">2020-09-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%A8%88%E7%AE%97%E6%A9%9F%E8%AA%9E%E8%A8%80/">計算機語言</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python47-Mysql"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">閱讀量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="數據庫簡介"><a class="markdownIt-Anchor" href="#數據庫簡介"></a> 數據庫簡介</h1>
+<h2 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h2>
+<ul>
+<li>計算機誕生後，數據開始在計算機內儲存並計算，並設計出了數據庫系統</li>
+<li>數據庫解決的問題
+<ul>
+<li>持久化儲存</li>
+<li>優化讀寫</li>
+<li>保證數據的有效性</li>
+</ul>
+</li>
+<li>當前使用的數據庫主要分為兩類
+<ul>
+<li>文檔型
+<ul>
+<li>例如sqlite，通過對文件的複製完成數據庫的複製</li>
+<li>例如mysql，postgre，數據儲存在一個物理文件中，但是需要終端以tcp/ip協議連接，進行數據庫的讀寫操作</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="三範式"><a class="markdownIt-Anchor" href="#三範式"></a> 三範式</h2>
+<ul>
+<li>經過研究和對使用中的問題的總結，對於設計數據庫提出了一些規範，這些規範稱為範式</li>
+</ul>
+<h3 id="範式"><a class="markdownIt-Anchor" href="#範式"></a> 範式</h3>
+<ul>
+<li>第一範式（1NF）：列不可拆分</li>
+<li>第二範式（2NF）：唯一標識</li>
+<li>第三範式（3NF）：引用主鍵（唯一，不能相同，不能為空）</li>
+</ul>
+<h2 id="e-r模型"><a class="markdownIt-Anchor" href="#e-r模型"></a> E-R模型</h2>
+<ul>
+<li>當前物理數據庫都是按照E-R模型進行設計的</li>
+<li>E代表entry，實體</li>
+<li>R代表relationship，關係</li>
+<li>一個實體轉換為數據庫中的一個表</li>
+<li>關係描述兩個實體間的對應規則，包括
+<ul>
+<li>一對一</li>
+<li>一對多</li>
+<li>多對多</li>
+</ul>
+</li>
+<li>關係轉換為數據庫表中的一個列 *在關係型數據庫中，一行就是一個對象</li>
+</ul>
+<h2 id="主要操作"><a class="markdownIt-Anchor" href="#主要操作"></a> 主要操作</h2>
+<ul>
+<li>數據庫的操作，包括創建，刪除</li>
+<li>表的操作，包括創建，修改和刪除</li>
+<li>數據的操作，包括增加，檢索，更新，刪除，簡稱crud</li>
+</ul>
+<h1 id="數據完整性"><a class="markdownIt-Anchor" href="#數據完整性"></a> 數據完整性</h1>
+<h2 id="概念-2"><a class="markdownIt-Anchor" href="#概念-2"></a> 概念</h2>
+<ul>
+<li>一個數據庫就是一個完整的業務單元，可以包括多張表，數據被儲存在表中</li>
+<li>在表中為了更加準確的存儲數據，保證數據的正確性，可以在創建表的時候，為表添加一些強制性的驗證，包括數據字段的類型，約束</li>
+</ul>
+<h2 id="字段類型"><a class="markdownIt-Anchor" href="#字段類型"></a> 字段類型</h2>
+<ul>
+<li>數字：int，deciaml
+<ul>
+<li>deciaml(5, 2)表示一共有五位數，小數包含兩位</li>
+</ul>
+</li>
+<li>字符串：char，varchar，text</li>
+<li>日期：datetime</li>
+<li>布爾：bit</li>
+</ul>
+<h2 id="約束"><a class="markdownIt-Anchor" href="#約束"></a> 約束</h2>
+<ul>
+<li>主鍵primary key
+<ul>
+<li>主鍵只能有一個</li>
+</ul>
+</li>
+<li>非空not null</li>
+<li>唯一unique
+<ul>
+<li>唯一可以有多個，物理上儲存的結構是由主鍵維護的</li>
+</ul>
+</li>
+<li>默認default</li>
+<li>外鍵foreign key</li>
+</ul>
+<h1 id="設計數據表"><a class="markdownIt-Anchor" href="#設計數據表"></a> 設計數據表</h1>
+<h2 id="學生表結構"><a class="markdownIt-Anchor" href="#學生表結構"></a> 學生表結構</h2>
+<ul>
+<li>id</li>
+<li>name</li>
+<li>gender</li>
+<li>address</li>
+</ul>
+<h2 id="科目表結構"><a class="markdownIt-Anchor" href="#科目表結構"></a> 科目表結構</h2>
+<ul>
+<li>id</li>
+<li>name</li>
+</ul>
+<h1 id="圖形窗口操作"><a class="markdownIt-Anchor" href="#圖形窗口操作"></a> 圖形窗口操作</h1>
+<ul>
+<li>創建數據庫</li>
+<li>創建表</li>
+<li>添加字段</li>
+<li>邏輯刪除<br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-08-31_06-33-06.png" alt="" /></li>
+</ul>
+<h1 id="命令"><a class="markdownIt-Anchor" href="#命令"></a> 命令</h1>
+<h2 id="基本命令"><a class="markdownIt-Anchor" href="#基本命令"></a> 基本命令</h2>
+<h3 id="啟動服務"><a class="markdownIt-Anchor" href="#啟動服務"></a> 啟動服務</h3>
+<ul>
+<li>說明：以管理員身份運行cmd</li>
+<li>格式：<code>net start 服務名稱</code></li>
+<li>示例：<code>net start mysql80</code></li>
+</ul>
+<h3 id="停止服務"><a class="markdownIt-Anchor" href="#停止服務"></a> 停止服務</h3>
+<ul>
+<li>說明：以管理員身份運行cmd</li>
+<li>格式：<code>net stop 服務名稱</code></li>
+<li>示例：<code>net stop mysql80</code></li>
+</ul>
+<h3 id="連接數據庫"><a class="markdownIt-Anchor" href="#連接數據庫"></a> 連接數據庫</h3>
+<ul>
+<li>格式：<code>mysql -u 用戶名 -p</code></li>
+<li>示例：<code>mysql -u root -p</code> &amp; <code>輸入密碼</code></li>
+</ul>
+<h3 id="斷開連接"><a class="markdownIt-Anchor" href="#斷開連接"></a> 斷開連接</h3>
+<ul>
+<li><code>quit</code>或<code>exit</code></li>
+</ul>
+<h3 id="查看版本連接後執行"><a class="markdownIt-Anchor" href="#查看版本連接後執行"></a> 查看版本（連接後執行）</h3>
+<ul>
+<li>示例：<code>select version();</code></li>
+</ul>
+<h3 id="顯示當前時間連接後執行"><a class="markdownIt-Anchor" href="#顯示當前時間連接後執行"></a> 顯示當前時間（連接後執行）</h3>
+<ul>
+<li>示例：<code>select now();</code></li>
+</ul>
+<h3 id="遠程連接"><a class="markdownIt-Anchor" href="#遠程連接"></a> 遠程連接</h3>
+<ul>
+<li>格式：<code>mysql -h ip地址 -u 用戶名 -p</code> &amp; <code>輸入對方的MySQL密碼</code></li>
+</ul>
+<h2 id="數據庫操作命令"><a class="markdownIt-Anchor" href="#數據庫操作命令"></a> 數據庫操作命令</h2>
+<h3 id="創建數據庫"><a class="markdownIt-Anchor" href="#創建數據庫"></a> 創建數據庫</h3>
+<ul>
+<li>格式：<code>create database 數據庫名 charset=utf8;</code></li>
+<li>示例：<code>create database jerry charset=utf8;</code></li>
+</ul>
+<h3 id="刪除數據庫"><a class="markdownIt-Anchor" href="#刪除數據庫"></a> 刪除數據庫</h3>
+<ul>
+<li>格式：<code>drop database 數據庫名;</code></li>
+<li>示例：<code>drop database jerry;</code></li>
+</ul>
+<h3 id="切換數據庫"><a class="markdownIt-Anchor" href="#切換數據庫"></a> 切換數據庫</h3>
+<ul>
+<li>格式：<code>use 數據庫名</code></li>
+<li>示例：<code>use jerry</code></li>
+</ul>
+<h3 id="查看當前使用的數據庫"><a class="markdownIt-Anchor" href="#查看當前使用的數據庫"></a> 查看當前使用的數據庫</h3>
+<ul>
+<li>格式：<code>select database();</code></li>
+</ul>
+<h2 id="表操作命令"><a class="markdownIt-Anchor" href="#表操作命令"></a> 表操作命令</h2>
+<h3 id="查看數據庫中所有的表"><a class="markdownIt-Anchor" href="#查看數據庫中所有的表"></a> 查看數據庫中所有的表</h3>
+<ul>
+<li>格式：<code>show tables;</code></li>
+</ul>
+<h3 id="創建表"><a class="markdownIt-Anchor" href="#創建表"></a> 創建表</h3>
+<ul>
+<li>格式：<code>create table 表名(列以及類型);</code></li>
+<li>說明：
+<ol>
+<li><code>auto_increment</code> 表明自增長</li>
+<li><code>primary key</code> 表明主鍵</li>
+<li><code>not null</code> 表示不為空</li>
+<li><code>default</code> 聲明默認值</li>
+</ol>
+</li>
+<li>示例：<code>create table student(id int auto_increment primary key, name varchar(20) not null, age int not null, gender bit default 1, address varchar(20), isDelete bit default 0);</code><br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-08-31_18-15-39.png" alt="" /></li>
+</ul>
+<h3 id="刪除表"><a class="markdownIt-Anchor" href="#刪除表"></a> 刪除表</h3>
+<ul>
+<li>格式：<code>drop table 表名;</code></li>
+<li>示例：<code>drop table student;</code></li>
+</ul>
+<h3 id="查看表結構"><a class="markdownIt-Anchor" href="#查看表結構"></a> 查看表結構</h3>
+<ul>
+<li>格式：desc 表名;</li>
+<li>示例：desc student;<br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-08-31_18-20-10.png" alt="" /></li>
+</ul>
+<h3 id="查看建表語句"><a class="markdownIt-Anchor" href="#查看建表語句"></a> 查看建表語句</h3>
+<ul>
+<li>格式：<code>show create table 表名;</code></li>
+<li>示例：<code>show create table student;</code></li>
+</ul>
+<h3 id="重命名表"><a class="markdownIt-Anchor" href="#重命名表"></a> 重命名表</h3>
+<ul>
+<li>格式：<code>rename table 原表名 to 新表名</code></li>
+<li>示例：<code>rename table student to newStudent</code></li>
+</ul>
+<h3 id="修改表"><a class="markdownIt-Anchor" href="#修改表"></a> 修改表</h3>
+<ul>
+<li>格式：<code>alter table 表名 add|change|drop 列名 類型;</code></li>
+<li>示例：<code>alter table student add p1 char;</code></li>
+</ul>
+<h2 id="數據操作命令"><a class="markdownIt-Anchor" href="#數據操作命令"></a> 數據操作命令</h2>
+<h3 id="增加數據"><a class="markdownIt-Anchor" href="#增加數據"></a> 增加數據</h3>
+<h4 id="全列插入"><a class="markdownIt-Anchor" href="#全列插入"></a> 全列插入</h4>
+<ul>
+<li>格式：<code>insert into 表名 values(...);</code></li>
+<li>說明：主鍵列是自動增長，但是在全列插入時需要佔位，通常使用0，插入成功以後以實際數據為準</li>
+<li>示例：<code>insert into student values(0,&quot;Irene&quot;,17,0,&quot;France&quot;,&quot;&quot;);</code></li>
+</ul>
+<h4 id="缺省插入"><a class="markdownIt-Anchor" href="#缺省插入"></a> 缺省插入</h4>
+<ul>
+<li>格式：<code>insert into 表名(列1,列2,...) values(值1,值2,...);</code></li>
+<li>示例：<code>insert into student(name,age,address) values(&quot;Prinz&quot;,17,&quot;Germany&quot;)</code></li>
+<li>說明：id與gender有默認值，所以不用插入</li>
+</ul>
+<h4 id="同時插入多條數據"><a class="markdownIt-Anchor" href="#同時插入多條數據"></a> 同時插入多條數據</h4>
+<ul>
+<li>格式：<code>insert into 表名 values(...),(...),...;</code></li>
+<li>示例：<code>insert into student values(0,&quot;Candy&quot;,17,0,&quot;HK&quot;),(0,&quot;Mandy&quot;,17,0,&quot;HK&quot;),(0,&quot;Kelly&quot;,17,0,&quot;HK&quot;);</code></li>
+<li>說明：</li>
+</ul>
+<h3 id="刪除數據"><a class="markdownIt-Anchor" href="#刪除數據"></a> 刪除數據</h3>
+<ul>
+<li>格式：<code>delete from 表名 where 條件;</code></li>
+<li>示例：<code>delete from student where id=3;</code></li>
+<li>注意：沒有條件是全部刪除，<strong>慎用</strong></li>
+</ul>
+<h3 id="修改數據"><a class="markdownIt-Anchor" href="#修改數據"></a> 修改數據</h3>
+<ul>
+<li>格式：<code>update 表名 set 列1=值1,列2=值2,... where 條件;</code></li>
+<li>示例：<code>update student set 列1=值1,列2=值2,... where id=8;</code></li>
+<li>注意：沒有條件是全部列都修改，<strong>慎用</strong></li>
+</ul>
+<h3 id="查詢數據"><a class="markdownIt-Anchor" href="#查詢數據"></a> 查詢數據</h3>
+<h4 id="基本語法"><a class="markdownIt-Anchor" href="#基本語法"></a> 基本語法</h4>
+<ul>
+<li>格式：<code>select * from 表名;</code></li>
+<li>說明：<br />
+1. from關鍵字後面是表名，表示數據來源於這張表<br />
+2. select後面寫表中的列名，如果是*表示在結果集中顯示表中的所有列<br />
+3. 在select後面的列名部分可以使用as為列名起別名，別名顯示在結果集中<br />
+4. 如果要查詢多個列，之間使用<code>,</code>分隔</li>
+<li>示例：
+<ul>
+<li><code>select name,age from student;</code></li>
+<li><code>select * from student;</code></li>
+<li><code>select name as n, age from student;</code><br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-08-31_23-00-44.png" alt="" /></li>
+</ul>
+</li>
+</ul>
+<h4 id="消除重複行"><a class="markdownIt-Anchor" href="#消除重複行"></a> 消除重複行</h4>
+<ul>
+<li>在select後面列的前面使用distinct可以消除重複的行</li>
+<li>示例：<code>select distinct gender from student;</code><br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-08-31_23-05-51.png" alt="" /></li>
+</ul>
+<h4 id="查看條件"><a class="markdownIt-Anchor" href="#查看條件"></a> 查看條件</h4>
+<h5 id="語法"><a class="markdownIt-Anchor" href="#語法"></a> 語法</h5>
+<ul>
+<li><code>select * from 表名 where 條件</code></li>
+</ul>
+<h5 id="比較運算符"><a class="markdownIt-Anchor" href="#比較運算符"></a> 比較運算符</h5>
+<ul>
+<li>
+<p>等於</p>
+<ul>
+<li><code>=</code></li>
+</ul>
+</li>
+<li>
+<p>大於</p>
+<ul>
+<li><code>&gt;</code></li>
+</ul>
+</li>
+<li>
+<p>小於</p>
+<ul>
+<li><code>&lt;</code></li>
+</ul>
+</li>
+<li>
+<p>大於等於</p>
+<ul>
+<li><code>&gt;=</code></li>
+</ul>
+</li>
+<li>
+<p>小於等於</p>
+<ul>
+<li><code>&lt;=</code></li>
+</ul>
+</li>
+<li>
+<p>不等於</p>
+<ul>
+<li><code>!=</code> 或 <code>&lt;&gt;</code></li>
+</ul>
+</li>
+<li>
+<p>示例：查詢id值大於8的所有數據</p>
+<ul>
+<li><code>select * from student where id \&gt; 8;</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="邏輯運算符"><a class="markdownIt-Anchor" href="#邏輯運算符"></a> 邏輯運算符</h5>
+<ul>
+<li>並且
+<ul>
+<li><code>and</code></li>
+</ul>
+</li>
+<li>或者
+<ul>
+<li><code>or</code></li>
+</ul>
+</li>
+<li>非
+<ul>
+<li><code>not</code></li>
+</ul>
+</li>
+<li>示例：查詢id值大於7的女同學
+<ul>
+<li><code>select * from student where id&gt;7 and gender=0;</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="模糊查詢"><a class="markdownIt-Anchor" href="#模糊查詢"></a> 模糊查詢</h5>
+<ul>
+<li>
+<p><code>like</code></p>
+<ul>
+<li><code>%</code>：表示任意多個任意字符</li>
+<li><code>_</code>：表示一個任意字符</li>
+</ul>
+</li>
+<li>
+<p>示例：查詢姓李的同學</p>
+<ul>
+<li><code>select * from student where name like &quot;李%&quot;;</code></li>
+<li><code>select * from student where name like &quot;李_&quot;;</code></li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-08-31_23-29-55.png" alt="" /></p>
+<h5 id="範圍查詢"><a class="markdownIt-Anchor" href="#範圍查詢"></a> 範圍查詢</h5>
+<ul>
+<li>
+<p><code>in</code>：表示在一個非連續的範圍內</p>
+</li>
+<li>
+<p><code>between...and...</code>：表示在一個連續的範圍內</p>
+</li>
+<li>
+<p>示例1：查詢編號為8，10，12的學生</p>
+<ul>
+<li><code>select * from student where id in (8,10,12);</code></li>
+</ul>
+</li>
+<li>
+<p>示例2：查詢編號為6-8的學生</p>
+<ul>
+<li><code>select * from student where id between 6 and 8;</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="空判斷"><a class="markdownIt-Anchor" href="#空判斷"></a> 空判斷</h5>
+<ul>
+<li>注意：<code>null</code>與<code>&quot;&quot;</code>是不同的</li>
+<li>判斷空：<code>is null</code></li>
+<li>判斷非空：<code>is not null</code></li>
+<li>示例1：查詢沒有地址的同學</li>
+<li><code>select * from student where address is null;</code></li>
+<li>示例2：查詢有地址的同學</li>
+<li><code>select * from student where address is not null;</code></li>
+</ul>
+<h5 id="優先級"><a class="markdownIt-Anchor" href="#優先級"></a> 優先級</h5>
+<ul>
+<li><code>()</code>,<code>not</code>,<code>比較運算符</code>，<code>邏輯運算符</code></li>
+<li><code>and</code>比<code>or</code>優先級高，如果同時出現並希望先選<code>or</code>，需要結合<code>()</code>使用</li>
+</ul>
+<h4 id="聚合"><a class="markdownIt-Anchor" href="#聚合"></a> 聚合</h4>
+<ul>
+<li>為了快速的到統計的數據，提供了五個聚合函數</li>
+</ul>
+<ol>
+<li><code>count(*)</code>
+<ul>
+<li>表示計算總行數，括號中可以寫<code>*</code>和<code>列名</code></li>
+</ul>
+</li>
+<li><code>max(列)</code>
+<ul>
+<li>表示求此列的最大值</li>
+</ul>
+</li>
+<li><code>min(列)</code>
+<ul>
+<li>表示求此列的最小值</li>
+</ul>
+</li>
+<li><code>sum(列)</code>
+<ul>
+<li>表示求此列的和</li>
+</ul>
+</li>
+<li><code>avg(列)</code>
+<ul>
+<li>表示求此列的平均值</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>示例：<br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-08-31_23-58-00.png" alt="" /></li>
+</ul>
+<h4 id="分組"><a class="markdownIt-Anchor" href="#分組"></a> 分組</h4>
+<ul>
+<li>
+<p>按照字段分組，表示此字段相同的數據會被放到一個集合中</p>
+</li>
+<li>
+<p>分組後只能查詢出相同的數據列，對於有差異的數據列，它無法顯示在結果集中</p>
+</li>
+<li>
+<p>可以對分組後的數據進行統計做聚合運算</p>
+</li>
+<li>
+<p>格式：<code>select 列1,列2,聚合... from 表名 group by 列1,列2,列3,...;</code></p>
+</li>
+<li>
+<p>示例1：查詢男女生總數，並以性別分組</p>
+</li>
+<li>
+<p><code>select gender,count(*)from student group by gender;</code></p>
+</li>
+<li>
+<p>示例2：查詢男女生總數，並以性別和年齡分組</p>
+</li>
+<li>
+<p><code>select name,gender,count(*)from student group by gender,age;</code><br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-09-01_00-18-00.png" alt="" /></p>
+</li>
+<li>
+<p>篩選分組後的數據</p>
+<ul>
+<li>格式：<code>select 列1,列2,聚合... from 表名 group by 列1,列2,列3,... having 列1,...,聚合,...;</code></li>
+<li>示例</li>
+<li>select gender,count(*) from student group by gender having gender;</li>
+</ul>
+</li>
+<li>
+<p><code>where</code> 與 <code>having</code> 的區別：</p>
+<ul>
+<li><code>where</code>是對<code>from</code>後面指定的表進行篩選，屬於對原始數據的篩選</li>
+<li><code>having</code>是對<code>group by</code>的結果進行篩選</li>
+</ul>
+</li>
+</ul>
+<h4 id="排序"><a class="markdownIt-Anchor" href="#排序"></a> 排序</h4>
+<ul>
+<li>
+<p>格式：<code>select * from 表示 order by 列1 asc|desc,列2 asc|desc,...;</code></p>
+</li>
+<li>
+<p>說明</p>
+<ol>
+<li>將數據按照列1進行排序，如果某些列1的值相同，則按照列2進行排序…如此類推</li>
+<li>默認按照升序（從小到大）排序</li>
+<li>asc升序</li>
+<li>desc降序</li>
+</ol>
+</li>
+<li>
+<p>示例1：將所有數據按年齡排序</p>
+</li>
+<li>
+<p><code>select * from student order by age;</code></p>
+</li>
+<li>
+<p>示例2：將沒有地址的數據按年齡降序排序</p>
+</li>
+<li>
+<p><code>select * from student where address=&quot;&quot; or address=null order by age desc;</code></p>
+</li>
+</ul>
+<h4 id="分頁"><a class="markdownIt-Anchor" href="#分頁"></a> 分頁</h4>
+<ul>
+<li>格式：<code>select * from 表名 limit start,count;</code></li>
+<li>說明：start索引從0開始</li>
+<li>示例：從第0個開始看，看三行</li>
+<li><code>select * from student limit 0,3;</code></li>
+</ul>
+<h4 id="關聯"><a class="markdownIt-Anchor" href="#關聯"></a> 關聯</h4>
+<ul>
+<li>
+<p>建表語句</p>
+<ol>
+<li><code>create table class(id int auto_increment primary key,name varchar(20) not null, stuNum int not null);</code></li>
+<li><code>create table students(id int auto_increment primary key,name varchar(20) not null, gender bit default 1, classid int not null, foreign key(classid)references class(id));</code></li>
+</ol>
+</li>
+<li>
+<p>插入一下數據</p>
+<ul>
+<li><code>insert into class values(0, &quot;5A&quot;, 30),(0, &quot;5B&quot;, 32),(0, &quot;5C&quot;, 29),(0, &quot;5D&quot;, 35);</code></li>
+<li><code>insert into students values(0, &quot;Jerry&quot;, 1, 4),(0, &quot;Irene&quot;, 0, 3),(0, &quot;Prinz&quot;, 0, 1);</code></li>
+</ul>
+</li>
+<li>
+<p>關聯查詢</p>
+<ul>
+<li><code>select students.name,class.name from class inner join students on class.id=students.classid;</code><br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-09-01_16-27-42.png" alt="" /></li>
+</ul>
+</li>
+</ul>
+<h5 id="分類"><a class="markdownIt-Anchor" href="#分類"></a> 分類</h5>
+<ol>
+<li><code>表A inner join 表B</code>
+<ul>
+<li>表A與表B匹配的行會出現在結果集中</li>
+</ul>
+</li>
+<li><code>表A left join 表B</code>
+<ul>
+<li>表A與表B匹配的行會出現在結果集中，外加表A中獨有的數據，未對應的數據使用null填充<br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-09-01_18-02-52.png" alt="" /></li>
+</ul>
+</li>
+<li><code>表A right join 表B</code>
+<ul>
+<li>表A與表B匹配的行會出現在結果集中，外加表B中獨有的數據，未對應的數據使用null填充<br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-09-01_18-05-30.png" alt="" /></li>
+</ul>
+</li>
+</ol>
+<h1 id="python連接數據庫"><a class="markdownIt-Anchor" href="#python連接數據庫"></a> Python連接數據庫</h1>
+<div class="note info flat"><p>安裝<code>pymysql</code>庫</p>
+</div>
+<ul>
+<li><code>pymysql.connect()</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接數據庫</span></span><br><span class="line"><span class="comment"># 參數1：mysql服務器所在主機的ip</span></span><br><span class="line"><span class="comment"># 參數2：用戶名</span></span><br><span class="line"><span class="comment"># 參數3：密碼</span></span><br><span class="line"><span class="comment"># 參數4：要連接的數據庫名</span></span><br><span class="line">db = pymysql.connect(<span class="string">&quot;localhost&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;passwd&quot;</span>, <span class="string">&quot;jerry&quot;</span>)</span><br><span class="line"><span class="comment"># 創建一個cursor對象</span></span><br><span class="line">cursor = db.cursor()</span><br><span class="line"></span><br><span class="line">sql = <span class="string">&quot;select version()&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 執行sql語句</span></span><br><span class="line">cursor.execute(sql)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 獲取返回的信息</span></span><br><span class="line">data = cursor.fetchone()</span><br><span class="line"><span class="built_in">print</span>(data)</span><br><span class="line"><span class="comment"># 斷開</span></span><br><span class="line">cursor.close()</span><br><span class="line">db.close()</span><br></pre></td></tr></table></figure>
+<h1 id="創建表-2"><a class="markdownIt-Anchor" href="#創建表-2"></a> 創建表</h1>
+<ul>
+<li><code>create table name()</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">db = pymysql.connect(<span class="string">&quot;localhost&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;passwd&quot;</span>, <span class="string">&quot;jerry&quot;</span>)</span><br><span class="line">cursor = db.cursor()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 檢查表是否存在，如果存在則刪除</span></span><br><span class="line">cursor.execute(<span class="string">&quot;drop table if exists bandcard&quot;</span>)</span><br><span class="line"><span class="comment"># 建表</span></span><br><span class="line">sql = <span class="string">&#x27;create table bandcard(id int auto_increment primary key, money int not null)&#x27;</span></span><br><span class="line">cursor.execute(sql)</span><br><span class="line"></span><br><span class="line">cursor.close()</span><br><span class="line">db.close()</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-08-31_01-00-45.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-08-31_01-01-32.png" alt="" /></p>
+<h1 id="插入數據"><a class="markdownIt-Anchor" href="#插入數據"></a> 插入數據</h1>
+<ul>
+<li><code>insert into name values(n, m)</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">db = pymysql.connect(<span class="string">&quot;localhost&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;passwd&quot;</span>, <span class="string">&quot;jerry&quot;</span>)</span><br><span class="line">cursor = db.cursor()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建表</span></span><br><span class="line">sql = <span class="string">&#x27;insert into bandcard values(0, 100)&#x27;</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    cursor.execute(sql)</span><br><span class="line">    <span class="comment"># 提交</span></span><br><span class="line">    db.commit()</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="comment"># 如果提交失敗，回滾到上一次的數據</span></span><br><span class="line">    db.rollback()</span><br><span class="line"></span><br><span class="line">cursor.close()</span><br><span class="line">db.close()</span><br></pre></td></tr></table></figure>
+<h1 id="修改數據-2"><a class="markdownIt-Anchor" href="#修改數據-2"></a> 修改數據</h1>
+<ul>
+<li><code>update name set x=y where id=x</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">db = pymysql.connect(<span class="string">&quot;localhost&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;passwd&quot;</span>, <span class="string">&quot;jerry&quot;</span>)</span><br><span class="line">cursor = db.cursor()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建表</span></span><br><span class="line">sql = <span class="string">&#x27;update bandcard set money=1000 where id=1&#x27;</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    cursor.execute(sql)</span><br><span class="line">    <span class="comment"># 提交</span></span><br><span class="line">    db.commit()</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="comment"># 如果提交失敗，回滾到上一次的數據</span></span><br><span class="line">    db.rollback()</span><br><span class="line"></span><br><span class="line">cursor.close()</span><br><span class="line">db.close()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-08-31_01-03-20.png" alt="" /></p>
+<h1 id="刪除數據-2"><a class="markdownIt-Anchor" href="#刪除數據-2"></a> 刪除數據</h1>
+<ul>
+<li><code>delete from name where x=y</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">db = pymysql.connect(<span class="string">&quot;localhost&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;passwd&quot;</span>, <span class="string">&quot;jerry&quot;</span>)</span><br><span class="line">cursor = db.cursor()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建表</span></span><br><span class="line">sql = <span class="string">&#x27;delete from bandcard where money = 1000&#x27;</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    cursor.execute(sql)</span><br><span class="line">    <span class="comment"># 提交</span></span><br><span class="line">    db.commit()</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="comment"># 如果提交失敗，回滾到上一次的數據</span></span><br><span class="line">    db.rollback()</span><br><span class="line"></span><br><span class="line">cursor.close()</span><br><span class="line">db.close()</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-08-31_01-07-17.png" alt="" /></p>
+<h1 id="查找數據"><a class="markdownIt-Anchor" href="#查找數據"></a> 查找數據</h1>
+<ul>
+<li>
+<p><code>fetchone()</code></p>
+<ul>
+<li>功能：獲取下一個查詢結果幾，結果集是一個對象</li>
+</ul>
+</li>
+<li>
+<p><code>fetchall()</code></p>
+<ul>
+<li>功能：接受全部的返回的行</li>
+</ul>
+</li>
+<li>
+<p><code>rowcount</code></p>
+<ul>
+<li>是一個只讀屬性，返回<code>execute()</code>方法影響的行數</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line">db = pymysql.connect(<span class="string">&quot;localhost&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;passwd&quot;</span>, <span class="string">&quot;jerry&quot;</span>)</span><br><span class="line">cursor = db.cursor()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建表</span></span><br><span class="line">sql = <span class="string">&#x27;select * from bandcard where money&gt;400&#x27;</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    cursor.execute(sql)</span><br><span class="line">    reslist = cursor.fetchall()</span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> reslist:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;%d--%d&quot;</span> % (row[<span class="number">0</span>], row[<span class="number">1</span>]))</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="comment"># 如果提交失敗，回滾到上一次的數據</span></span><br><span class="line">    db.rollback()</span><br><span class="line"></span><br><span class="line">cursor.close()</span><br><span class="line">db.close()</span><br><span class="line"></span><br><span class="line">結果：</span><br><span class="line"><span class="number">7</span>--<span class="number">500</span></span><br><span class="line"><span class="number">8</span>--<span class="number">600</span></span><br><span class="line"><span class="number">9</span>--<span class="number">700</span></span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">D.VaGary</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章連結: </span><span class="post-copyright-info"><a href="https://blog.dvagary.com/2020/08/30/python47/">https://blog.dvagary.com/2020/08/30/python47/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版權聲明: </span><span class="post-copyright-info">本部落格所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 許可協議。轉載請註明來自 <a href="https://blog.dvagary.com" target="_blank">D.VaGary</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a><a class="post-meta__tags" href="/tags/MySQL/">MySQL</a><a class="post-meta__tags" href="/tags/%E6%95%B8%E6%93%9A%E5%BA%AB/">數據庫</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/JWHK852/image/master/mysqlpy.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/09/01/python48/"><img class="prev-cover" src="https://raw.githubusercontent.com/JWHK852/image/master/mongodbpy.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Python48-MongoDB</div></div></a></div><div class="next-post pull-right"><a href="/2020/08/30/python46/"><img class="next-cover" src="https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python46-協程</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相關推薦</span></div><div class="relatedPosts-list"><div><a href="/2020/09/01/python48/" title="Python48-MongoDB"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/mongodbpy.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-01</div><div class="title">Python48-MongoDB</div></div></a></div><div><a href="/2020/09/03/python49/" title="Python49-Redis"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/tiamg.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-03</div><div class="title">Python49-Redis</div></div></a></div><div><a href="/2022/05/07/ai2/" title="AI2-基础庫"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-07</div><div class="title">AI2-基础庫</div></div></a></div><div><a href="/2022/05/25/ai4/" title="AI4-機器學習-邏輯回歸"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-25</div><div class="title">AI4-機器學習-邏輯回歸</div></div></a></div><div><a href="/2022/05/13/ai3/" title="AI3-機器學習-線性回歸"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-13</div><div class="title">AI3-機器學習-線性回歸</div></div></a></div><div><a href="/2022/05/06/ai1/" title="AI1-簡介"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-06</div><div class="title">AI1-簡介</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 評論</span></div><div id="comment-switch"><span class="first-comment">Valine</span><span class="switch-btn"></span><span class="second-comment">Livere</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="lv-container" data-id="city" data-uid="MTAyMC81MDA0NS8yNjUzNg=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">D.VaGary</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">102</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">39</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">5</div></a></div></div><a class="button--animated" id="card-info-btn" href="tencent://message/?uin=1761087701&amp;Site=&amp;Menu=yes"><i class="fab fa-qq"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://open.spotify.com/playlist/2JjPHBAleYRxVAqiqBRCea?si=XZ3lRmLgSDaMuIzHtIpfrA" target="_blank" title="Spotify"><i class="fab fa-spotify"></i></a><a class="social-icon" href="https://steamcommunity.com/id/dvagary" target="_blank" title="Steam"><i class="fab fa-steam"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Pixiv日榜&nbsp;&nbsp;<i class="fas fa-images"></i><br><iframe src="https://cloud.mokeyjay.com/pixiv" frameborder="0"  style="width:240px; height:380px;"></iframe></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目錄</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E5%BA%AB%E7%B0%A1%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text"> 數據庫簡介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text"> 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E7%AF%84%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text"> 三範式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E5%BC%8F"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 範式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#e-r%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text"> E-R模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E6%93%8D%E4%BD%9C"><span class="toc-number">1.4.</span> <span class="toc-text"> 主要操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text"> 數據完整性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-2"><span class="toc-number">2.1.</span> <span class="toc-text"> 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E6%AE%B5%E9%A1%9E%E5%9E%8B"><span class="toc-number">2.2.</span> <span class="toc-text"> 字段類型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B4%84%E6%9D%9F"><span class="toc-number">2.3.</span> <span class="toc-text"> 約束</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A8%AD%E8%A8%88%E6%95%B8%E6%93%9A%E8%A1%A8"><span class="toc-number">3.</span> <span class="toc-text"> 設計數據表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%B8%E7%94%9F%E8%A1%A8%E7%B5%90%E6%A7%8B"><span class="toc-number">3.1.</span> <span class="toc-text"> 學生表結構</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%91%E7%9B%AE%E8%A1%A8%E7%B5%90%E6%A7%8B"><span class="toc-number">3.2.</span> <span class="toc-text"> 科目表結構</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%96%E5%BD%A2%E7%AA%97%E5%8F%A3%E6%93%8D%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text"> 圖形窗口操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-number">5.</span> <span class="toc-text"> 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="toc-number">5.1.</span> <span class="toc-text"> 基本命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%95%9F%E5%8B%95%E6%9C%8D%E5%8B%99"><span class="toc-number">5.1.1.</span> <span class="toc-text"> 啟動服務</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%9C%E6%AD%A2%E6%9C%8D%E5%8B%99"><span class="toc-number">5.1.2.</span> <span class="toc-text"> 停止服務</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%A3%E6%8E%A5%E6%95%B8%E6%93%9A%E5%BA%AB"><span class="toc-number">5.1.3.</span> <span class="toc-text"> 連接數據庫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B7%E9%96%8B%E9%80%A3%E6%8E%A5"><span class="toc-number">5.1.4.</span> <span class="toc-text"> 斷開連接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%89%88%E6%9C%AC%E9%80%A3%E6%8E%A5%E5%BE%8C%E5%9F%B7%E8%A1%8C"><span class="toc-number">5.1.5.</span> <span class="toc-text"> 查看版本（連接後執行）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%AF%E7%A4%BA%E7%95%B6%E5%89%8D%E6%99%82%E9%96%93%E9%80%A3%E6%8E%A5%E5%BE%8C%E5%9F%B7%E8%A1%8C"><span class="toc-number">5.1.6.</span> <span class="toc-text"> 顯示當前時間（連接後執行）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%A0%E7%A8%8B%E9%80%A3%E6%8E%A5"><span class="toc-number">5.1.7.</span> <span class="toc-text"> 遠程連接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E5%BA%AB%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="toc-number">5.2.</span> <span class="toc-text"> 數據庫操作命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%B5%E5%BB%BA%E6%95%B8%E6%93%9A%E5%BA%AB"><span class="toc-number">5.2.1.</span> <span class="toc-text"> 創建數據庫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%AA%E9%99%A4%E6%95%B8%E6%93%9A%E5%BA%AB"><span class="toc-number">5.2.2.</span> <span class="toc-text"> 刪除數據庫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%87%E6%8F%9B%E6%95%B8%E6%93%9A%E5%BA%AB"><span class="toc-number">5.2.3.</span> <span class="toc-text"> 切換數據庫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%95%B6%E5%89%8D%E4%BD%BF%E7%94%A8%E7%9A%84%E6%95%B8%E6%93%9A%E5%BA%AB"><span class="toc-number">5.2.4.</span> <span class="toc-text"> 查看當前使用的數據庫</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="toc-number">5.3.</span> <span class="toc-text"> 表操作命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%95%B8%E6%93%9A%E5%BA%AB%E4%B8%AD%E6%89%80%E6%9C%89%E7%9A%84%E8%A1%A8"><span class="toc-number">5.3.1.</span> <span class="toc-text"> 查看數據庫中所有的表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%B5%E5%BB%BA%E8%A1%A8"><span class="toc-number">5.3.2.</span> <span class="toc-text"> 創建表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%AA%E9%99%A4%E8%A1%A8"><span class="toc-number">5.3.3.</span> <span class="toc-text"> 刪除表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%A1%A8%E7%B5%90%E6%A7%8B"><span class="toc-number">5.3.4.</span> <span class="toc-text"> 查看表結構</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BB%BA%E8%A1%A8%E8%AA%9E%E5%8F%A5"><span class="toc-number">5.3.5.</span> <span class="toc-text"> 查看建表語句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E8%A1%A8"><span class="toc-number">5.3.6.</span> <span class="toc-text"> 重命名表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E8%A1%A8"><span class="toc-number">5.3.7.</span> <span class="toc-text"> 修改表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="toc-number">5.4.</span> <span class="toc-text"> 數據操作命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E6%95%B8%E6%93%9A"><span class="toc-number">5.4.1.</span> <span class="toc-text"> 增加數據</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%88%97%E6%8F%92%E5%85%A5"><span class="toc-number">5.4.1.1.</span> <span class="toc-text"> 全列插入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%BA%E7%9C%81%E6%8F%92%E5%85%A5"><span class="toc-number">5.4.1.2.</span> <span class="toc-text"> 缺省插入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8C%E6%99%82%E6%8F%92%E5%85%A5%E5%A4%9A%E6%A2%9D%E6%95%B8%E6%93%9A"><span class="toc-number">5.4.1.3.</span> <span class="toc-text"> 同時插入多條數據</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%AA%E9%99%A4%E6%95%B8%E6%93%9A"><span class="toc-number">5.4.2.</span> <span class="toc-text"> 刪除數據</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%95%B8%E6%93%9A"><span class="toc-number">5.4.3.</span> <span class="toc-text"> 修改數據</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E6%95%B8%E6%93%9A"><span class="toc-number">5.4.4.</span> <span class="toc-text"> 查詢數據</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%AA%9E%E6%B3%95"><span class="toc-number">5.4.4.1.</span> <span class="toc-text"> 基本語法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B6%88%E9%99%A4%E9%87%8D%E8%A4%87%E8%A1%8C"><span class="toc-number">5.4.4.2.</span> <span class="toc-text"> 消除重複行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%A2%9D%E4%BB%B6"><span class="toc-number">5.4.4.3.</span> <span class="toc-text"> 查看條件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AA%9E%E6%B3%95"><span class="toc-number">5.4.4.3.1.</span> <span class="toc-text"> 語法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AF%94%E8%BC%83%E9%81%8B%E7%AE%97%E7%AC%A6"><span class="toc-number">5.4.4.3.2.</span> <span class="toc-text"> 比較運算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E7%AC%A6"><span class="toc-number">5.4.4.3.3.</span> <span class="toc-text"> 邏輯運算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%A9%A2"><span class="toc-number">5.4.4.3.4.</span> <span class="toc-text"> 模糊查詢</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AF%84%E5%9C%8D%E6%9F%A5%E8%A9%A2"><span class="toc-number">5.4.4.3.5.</span> <span class="toc-text"> 範圍查詢</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A9%BA%E5%88%A4%E6%96%B7"><span class="toc-number">5.4.4.3.6.</span> <span class="toc-text"> 空判斷</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%84%AA%E5%85%88%E7%B4%9A"><span class="toc-number">5.4.4.3.7.</span> <span class="toc-text"> 優先級</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%81%9A%E5%90%88"><span class="toc-number">5.4.4.4.</span> <span class="toc-text"> 聚合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E7%B5%84"><span class="toc-number">5.4.4.5.</span> <span class="toc-text"> 分組</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F"><span class="toc-number">5.4.4.6.</span> <span class="toc-text"> 排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E9%A0%81"><span class="toc-number">5.4.4.7.</span> <span class="toc-text"> 分頁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%9C%E8%81%AF"><span class="toc-number">5.4.4.8.</span> <span class="toc-text"> 關聯</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E9%A1%9E"><span class="toc-number">5.4.4.8.1.</span> <span class="toc-text"> 分類</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#python%E9%80%A3%E6%8E%A5%E6%95%B8%E6%93%9A%E5%BA%AB"><span class="toc-number">6.</span> <span class="toc-text"> Python連接數據庫</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%B5%E5%BB%BA%E8%A1%A8-2"><span class="toc-number">7.</span> <span class="toc-text"> 創建表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%95%B8%E6%93%9A"><span class="toc-number">8.</span> <span class="toc-text"> 插入數據</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%95%B8%E6%93%9A-2"><span class="toc-number">9.</span> <span class="toc-text"> 修改數據</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%AA%E9%99%A4%E6%95%B8%E6%93%9A-2"><span class="toc-number">10.</span> <span class="toc-text"> 刪除數據</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%95%B8%E6%93%9A"><span class="toc-number">11.</span> <span class="toc-text"> 查找數據</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/06/23/django5/" title="Django5-部署"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django5-部署"/></a><div class="content"><a class="title" href="/2023/06/23/django5/" title="Django5-部署">Django5-部署</a><time datetime="2023-06-22T20:31:26.000Z" title="發表於 2023-06-23 04:31:26">2023-06-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/01/cpp_pointer/" title="C++-Pointer"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003323.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++-Pointer"/></a><div class="content"><a class="title" href="/2023/05/01/cpp_pointer/" title="C++-Pointer">C++-Pointer</a><time datetime="2023-04-30T20:31:26.000Z" title="發表於 2023-05-01 04:31:26">2023-05-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/21/django4/" title="Django4-完整開發案例"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django4-完整開發案例"/></a><div class="content"><a class="title" href="/2023/04/21/django4/" title="Django4-完整開發案例">Django4-完整開發案例</a><time datetime="2023-04-20T20:31:26.000Z" title="發表於 2023-04-21 04:31:26">2023-04-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/29/cpp1/" title="C++"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003323.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++"/></a><div class="content"><a class="title" href="/2023/03/29/cpp1/" title="C++">C++</a><time datetime="2023-03-28T20:31:26.000Z" title="發表於 2023-03-29 04:31:26">2023-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/23/django1/" title="Django1-簡介"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django1-簡介"/></a><div class="content"><a class="title" href="/2022/12/23/django1/" title="Django1-簡介">Django1-簡介</a><time datetime="2022-12-22T20:31:26.000Z" title="發表於 2022-12-23 04:31:26">2022-12-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://raw.githubusercontent.com/JWHK852/image/master/mysqlpy.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By D.VaGary</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主題 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="閱讀模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="簡繁轉換">繁</button><button id="darkmode" type="button" title="淺色和深色模式轉換"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="單欄和雙欄切換"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="設定"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目錄"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直達評論"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到頂部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜尋</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  資料庫載入中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜尋文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : ''
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'KRwnYKvfhHUtxrxXi6EMctLn-MdYXbMMI',
+      appKey: '6Be1unBSqa33Q3Qvr57Xw9I0',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: {"tv_doge":"6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png","tv_親親":"a8111ad55953ef5e3be3327ef94eb4a39d535d06.png","tv_偷笑":"bb690d4107620f1c15cff29509db529a73aee261.png","tv_再見":"180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png","tv_冷漠":"b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png","tv_發怒":"34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png","tv_發財":"34db290afd2963723c6eb3c4560667db7253a21a.png","tv_可愛":"9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png","tv_吐血":"09dd16a7aa59b77baa1155d47484409624470c77.png","tv_呆":"fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png","tv_嘔吐":"9f996894a39e282ccf5e66856af49483f81870f3.png","tv_困":"241ee304e44c0af029adceb294399391e4737ef2.png","tv_壞笑":"1f0b87f731a671079842116e0991c91c2c88645a.png","tv_大佬":"093c1e2c490161aca397afc45573c877cdead616.png","tv_大哭":"23269aeb35f99daee28dda129676f6e9ea87934f.png","tv_委屈":"d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png","tv_害羞":"a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png","tv_尷尬":"7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png","tv_微笑":"70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png","tv_思考":"90cf159733e558137ed20aa04d09964436f618a1.png","tv_驚嚇":"0d15c7e2ee58e935adc6a7193ee042388adc22af.png"},
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function loadLivere () {
+  if (typeof LivereTower === 'object') {
+    window.LivereTower.init()
+  }
+  else {
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  }
+}
+
+if ('Valine' === 'Livere' || !false) {
+  if (false) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+  else loadLivere()
+}
+else {
+  function loadOtherComment () {
+    loadLivere()
+  }
+}</script></div><script id="canvas_nest" defer="defer" color="176,224,230" opacity="0.7" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

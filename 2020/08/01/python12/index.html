@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="zh-TW" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Python12-元組 | D.VaGary</title><meta name="keywords" content="Python"><meta name="author" content="D.VaGary"><meta name="copyright" content="D.VaGary"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="元組  定義  元組是一種有序的集合   特點  與列表非常相似 一旦初始化就不能修改 使用小括號   創建元組  創建空的元組 123tuple1 &#x3D; ()print(tuple1)結果：()  創建帶有元素的元組  元組類型可以不同  123tuple2 &#x3D; (1, 2, 3, &quot;hello&quot;, True)print(tuple2)結果：(1, 2, 3, &amp;#x27;h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python12-元組">
+<meta property="og:url" content="https://blog.dvagary.com/2020/08/01/python12/index.html">
+<meta property="og:site_name" content="D.VaGary">
+<meta property="og:description" content="元組  定義  元組是一種有序的集合   特點  與列表非常相似 一旦初始化就不能修改 使用小括號   創建元組  創建空的元組 123tuple1 &#x3D; ()print(tuple1)結果：()  創建帶有元素的元組  元組類型可以不同  123tuple2 &#x3D; (1, 2, 3, &quot;hello&quot;, True)print(tuple2)結果：(1, 2, 3, &amp;#x27;h">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg">
+<meta property="article:published_time" content="2020-08-01T13:04:30.000Z">
+<meta property="article:modified_time" content="2020-08-04T16:58:24.067Z">
+<meta property="article:author" content="D.VaGary">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg"><link rel="shortcut icon" href="/img/icon.png"><link rel="canonical" href="https://blog.dvagary.com/2020/08/01/python12/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查詢的內容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '複製成功',
+    error: '複製錯誤',
+    noSupport: '瀏覽器不支援'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '剛剛',
+    min: '分鐘前',
+    hour: '小時前',
+    day: '天前',
+    month: '個月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切換為繁體","cht_to_chs":"你已切換為簡體","day_to_night":"你已切換為深色模式","night_to_day":"你已切換為淺色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Python12-元組',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-08-05 00:58:24'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><script src="../live2d-widget/autoload.js"></script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">載入中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">102</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">39</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">5</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 檔案室</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 關於我</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娛樂</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 遊戲</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相冊</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 電影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 鏈接區</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">D.VaGary</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜尋</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 檔案室</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 關於我</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娛樂</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 遊戲</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相冊</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 電影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 鏈接區</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python12-元組</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">發表於</span><time class="post-meta-date-created" datetime="2020-08-01T13:04:30.000Z" title="發表於 2020-08-01 21:04:30">2020-08-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新於</span><time class="post-meta-date-updated" datetime="2020-08-04T16:58:24.067Z" title="更新於 2020-08-05 00:58:24">2020-08-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%A8%88%E7%AE%97%E6%A9%9F%E8%AA%9E%E8%A8%80/">計算機語言</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python12-元組"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">閱讀量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="元組"><a class="markdownIt-Anchor" href="#元組"></a> 元組</h1>
+<h2 id="定義"><a class="markdownIt-Anchor" href="#定義"></a> 定義</h2>
+<ul>
+<li>元組是一種有序的集合</li>
+</ul>
+<h2 id="特點"><a class="markdownIt-Anchor" href="#特點"></a> 特點</h2>
+<ol>
+<li>與列表非常相似</li>
+<li>一旦初始化就不能修改</li>
+<li>使用小括號</li>
+</ol>
+<h1 id="創建元組"><a class="markdownIt-Anchor" href="#創建元組"></a> 創建元組</h1>
+<h2 id="創建空的元組"><a class="markdownIt-Anchor" href="#創建空的元組"></a> 創建空的元組</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tuple1 = ()</span><br><span class="line"><span class="built_in">print</span>(tuple1)</span><br><span class="line">結果：()</span><br></pre></td></tr></table></figure>
+<h2 id="創建帶有元素的元組"><a class="markdownIt-Anchor" href="#創建帶有元素的元組"></a> 創建帶有元素的元組</h2>
+<ul>
+<li>元組類型可以不同</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tuple2 = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="string">&quot;hello&quot;</span>, <span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(tuple2)</span><br><span class="line">結果：(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="string">&#x27;hello&#x27;</span>, <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="取值"><a class="markdownIt-Anchor" href="#取值"></a> 取值</h2>
+<ul>
+<li>下標從0開始<br />
+格式：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">元組名[下標]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tuple4 = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="built_in">print</span>(tuple4[<span class="number">0</span>])</span><br><span class="line">結果：<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>下標超過範圍會報錯</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tuple4 = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="built_in">print</span>(tuple4[<span class="number">5</span>])</span><br><span class="line">結果：IndexError  <span class="comment"># 越界</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>從後面開始獲取元素（從-1開始）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">tuple4 = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="built_in">print</span>(tuple4[-<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(tuple4[-<span class="number">2</span>])</span><br><span class="line"><span class="built_in">print</span>(tuple4[-<span class="number">3</span>])</span><br><span class="line"><span class="built_in">print</span>(tuple4[-<span class="number">4</span>])</span><br><span class="line"><span class="built_in">print</span>(tuple4[-<span class="number">5</span>])</span><br><span class="line">結果：</span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="修改元組"><a class="markdownIt-Anchor" href="#修改元組"></a> 修改元組</h2>
+<ul>
+<li>元組內元素不可改變，但元素如果是列表則可以</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tuple5 = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, [<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>])</span><br><span class="line">tuple5[<span class="number">0</span>] = <span class="number">100</span>  <span class="comment"># 改變元素</span></span><br><span class="line">結果：TypeError</span><br><span class="line">tuple5[-<span class="number">1</span>][<span class="number">0</span>] = <span class="number">500</span>  <span class="comment"># 改變列表元素內的元素</span></span><br><span class="line">結果：(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, [<span class="number">500</span>, <span class="number">6</span>, <span class="number">7</span>])</span><br></pre></td></tr></table></figure>
+<p>示意圖：</p>
+<blockquote>
+<p>記憶體<br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-08-05_00-30-28.png" alt="" /></p>
+</blockquote>
+<h2 id="刪除元組"><a class="markdownIt-Anchor" href="#刪除元組"></a> 刪除元組</h2>
+<ul>
+<li>指的是<strong>刪除整個元組</strong>而不是裡面的元素</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tuple6 = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">del</span> tuple6</span><br></pre></td></tr></table></figure>
+<hr />
+<h1 id="元組操作"><a class="markdownIt-Anchor" href="#元組操作"></a> 元組操作</h1>
+<h2 id="元組相加"><a class="markdownIt-Anchor" href="#元組相加"></a> 元組相加</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tuple7 = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">tuple8 = (<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br><span class="line"><span class="built_in">print</span>(tuple7 + tuple8)</span><br><span class="line">結果：(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>，<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="元組重複"><a class="markdownIt-Anchor" href="#元組重複"></a> 元組重複</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t10 = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(t10 * <span class="number">3</span>)</span><br><span class="line">結果：(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="判斷元素是否在元組中"><a class="markdownIt-Anchor" href="#判斷元素是否在元組中"></a> 判斷元素是否在元組中</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t11 = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="number">3</span> <span class="keyword">in</span> t11)  <span class="comment"># 在的話返回True 不在的話返回False</span></span><br><span class="line">結果：<span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<h2 id="元組的截取"><a class="markdownIt-Anchor" href="#元組的截取"></a> 元組的截取</h2>
+<ul>
+<li>從“開始下標”開始截取，截取到“結束下標”之前<br />
+格式：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">元組名[開始下標:結束下標]</span><br></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">t12 = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>)</span><br><span class="line"><span class="built_in">print</span>(t12[<span class="number">3</span>:<span class="number">7</span>])</span><br><span class="line">結果：(<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>)</span><br><span class="line"><span class="built_in">print</span>(t12[:<span class="number">7</span>])</span><br><span class="line">結果：(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>)</span><br><span class="line"><span class="built_in">print</span>(t12[<span class="number">3</span>:])</span><br><span class="line">結果：(<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="二維元組"><a class="markdownIt-Anchor" href="#二維元組"></a> 二維元組</h2>
+<ul>
+<li>元素為一維元組的元組</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t13 = ((<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>), (<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>三維元組
+<ul>
+<li>元素為二維元組的元組</li>
+</ul>
+</li>
+<li>…</li>
+<li>n維
+<ul>
+<li>元素為(n-1)維元組的元組</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h1 id="元組方法"><a class="markdownIt-Anchor" href="#元組方法"></a> 元組方法</h1>
+<h2 id="len返回元組中元素的個數"><a class="markdownIt-Anchor" href="#len返回元組中元素的個數"></a> len():返回元組中元素的個數</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t14 = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(t14))</span><br><span class="line">結果：<span class="number">5</span></span><br></pre></td></tr></table></figure>
+<h2 id="max返回元組中的最大值"><a class="markdownIt-Anchor" href="#max返回元組中的最大值"></a> max():返回元組中的最大值</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">max</span>((<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)))</span><br><span class="line">結果：<span class="number">5</span></span><br></pre></td></tr></table></figure>
+<h2 id="min返回元組中的最小值"><a class="markdownIt-Anchor" href="#min返回元組中的最小值"></a> min():返回元組中的最小值</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">max</span>((<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)))</span><br><span class="line">結果：<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="將列表轉元組"><a class="markdownIt-Anchor" href="#將列表轉元組"></a> 將列表轉元組</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">t15 = <span class="built_in">tuple</span>(<span class="built_in">list</span>)</span><br><span class="line"><span class="built_in">print</span>(t15)</span><br><span class="line">結果：(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="循環查看元組"><a class="markdownIt-Anchor" href="#循環查看元組"></a> 循環查看元組</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>):</span><br><span class="line">	<span class="built_in">print</span>(i)</span><br><span class="line">結果：</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">D.VaGary</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章連結: </span><span class="post-copyright-info"><a href="https://blog.dvagary.com/2020/08/01/python12/">https://blog.dvagary.com/2020/08/01/python12/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版權聲明: </span><span class="post-copyright-info">本部落格所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 許可協議。轉載請註明來自 <a href="https://blog.dvagary.com" target="_blank">D.VaGary</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/08/04/python13/"><img class="prev-cover" src="https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Python13-字典</div></div></a></div><div class="next-post pull-right"><a href="/2020/08/01/python11/"><img class="next-cover" src="https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python11-列表</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相關推薦</span></div><div class="relatedPosts-list"><div><a href="/2022/05/07/ai2/" title="AI2-基础庫"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-07</div><div class="title">AI2-基础庫</div></div></a></div><div><a href="/2022/05/25/ai4/" title="AI4-機器學習-邏輯回歸"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-25</div><div class="title">AI4-機器學習-邏輯回歸</div></div></a></div><div><a href="/2022/05/13/ai3/" title="AI3-機器學習-線性回歸"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-13</div><div class="title">AI3-機器學習-線性回歸</div></div></a></div><div><a href="/2022/05/06/ai1/" title="AI1-簡介"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-06</div><div class="title">AI1-簡介</div></div></a></div><div><a href="/2022/06/25/blockchain2/" title="Blockchain2-Python"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220626050810.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-25</div><div class="title">Blockchain2-Python</div></div></a></div><div><a href="/2020/08/25/json1/" title="Json"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/json.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-25</div><div class="title">Json</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 評論</span></div><div id="comment-switch"><span class="first-comment">Valine</span><span class="switch-btn"></span><span class="second-comment">Livere</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="lv-container" data-id="city" data-uid="MTAyMC81MDA0NS8yNjUzNg=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">D.VaGary</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">102</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">39</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">5</div></a></div></div><a class="button--animated" id="card-info-btn" href="tencent://message/?uin=1761087701&amp;Site=&amp;Menu=yes"><i class="fab fa-qq"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://open.spotify.com/playlist/2JjPHBAleYRxVAqiqBRCea?si=XZ3lRmLgSDaMuIzHtIpfrA" target="_blank" title="Spotify"><i class="fab fa-spotify"></i></a><a class="social-icon" href="https://steamcommunity.com/id/dvagary" target="_blank" title="Steam"><i class="fab fa-steam"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Pixiv日榜&nbsp;&nbsp;<i class="fas fa-images"></i><br><iframe src="https://cloud.mokeyjay.com/pixiv" frameborder="0"  style="width:240px; height:380px;"></iframe></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目錄</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%83%E7%B5%84"><span class="toc-number">1.</span> <span class="toc-text"> 元組</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E7%BE%A9"><span class="toc-number">1.1.</span> <span class="toc-text"> 定義</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E9%BB%9E"><span class="toc-number">1.2.</span> <span class="toc-text"> 特點</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%B5%E5%BB%BA%E5%85%83%E7%B5%84"><span class="toc-number">2.</span> <span class="toc-text"> 創建元組</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%B5%E5%BB%BA%E7%A9%BA%E7%9A%84%E5%85%83%E7%B5%84"><span class="toc-number">2.1.</span> <span class="toc-text"> 創建空的元組</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%B5%E5%BB%BA%E5%B8%B6%E6%9C%89%E5%85%83%E7%B4%A0%E7%9A%84%E5%85%83%E7%B5%84"><span class="toc-number">2.2.</span> <span class="toc-text"> 創建帶有元素的元組</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%96%E5%80%BC"><span class="toc-number">2.3.</span> <span class="toc-text"> 取值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%85%83%E7%B5%84"><span class="toc-number">2.4.</span> <span class="toc-text"> 修改元組</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%AA%E9%99%A4%E5%85%83%E7%B5%84"><span class="toc-number">2.5.</span> <span class="toc-text"> 刪除元組</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%83%E7%B5%84%E6%93%8D%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text"> 元組操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%83%E7%B5%84%E7%9B%B8%E5%8A%A0"><span class="toc-number">3.1.</span> <span class="toc-text"> 元組相加</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%83%E7%B5%84%E9%87%8D%E8%A4%87"><span class="toc-number">3.2.</span> <span class="toc-text"> 元組重複</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%B7%E5%85%83%E7%B4%A0%E6%98%AF%E5%90%A6%E5%9C%A8%E5%85%83%E7%B5%84%E4%B8%AD"><span class="toc-number">3.3.</span> <span class="toc-text"> 判斷元素是否在元組中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%83%E7%B5%84%E7%9A%84%E6%88%AA%E5%8F%96"><span class="toc-number">3.4.</span> <span class="toc-text"> 元組的截取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E7%B6%AD%E5%85%83%E7%B5%84"><span class="toc-number">3.5.</span> <span class="toc-text"> 二維元組</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%83%E7%B5%84%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text"> 元組方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#len%E8%BF%94%E5%9B%9E%E5%85%83%E7%B5%84%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E5%80%8B%E6%95%B8"><span class="toc-number">4.1.</span> <span class="toc-text"> len():返回元組中元素的個數</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#max%E8%BF%94%E5%9B%9E%E5%85%83%E7%B5%84%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC"><span class="toc-number">4.2.</span> <span class="toc-text"> max():返回元組中的最大值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#min%E8%BF%94%E5%9B%9E%E5%85%83%E7%B5%84%E4%B8%AD%E7%9A%84%E6%9C%80%E5%B0%8F%E5%80%BC"><span class="toc-number">4.3.</span> <span class="toc-text"> min():返回元組中的最小值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%87%E5%88%97%E8%A1%A8%E8%BD%89%E5%85%83%E7%B5%84"><span class="toc-number">4.4.</span> <span class="toc-text"> 將列表轉元組</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BE%AA%E7%92%B0%E6%9F%A5%E7%9C%8B%E5%85%83%E7%B5%84"><span class="toc-number">5.</span> <span class="toc-text"> 循環查看元組</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/06/23/django5/" title="Django5-部署"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django5-部署"/></a><div class="content"><a class="title" href="/2023/06/23/django5/" title="Django5-部署">Django5-部署</a><time datetime="2023-06-22T20:31:26.000Z" title="發表於 2023-06-23 04:31:26">2023-06-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/01/cpp_pointer/" title="C++-Pointer"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003323.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++-Pointer"/></a><div class="content"><a class="title" href="/2023/05/01/cpp_pointer/" title="C++-Pointer">C++-Pointer</a><time datetime="2023-04-30T20:31:26.000Z" title="發表於 2023-05-01 04:31:26">2023-05-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/21/django4/" title="Django4-完整開發案例"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django4-完整開發案例"/></a><div class="content"><a class="title" href="/2023/04/21/django4/" title="Django4-完整開發案例">Django4-完整開發案例</a><time datetime="2023-04-20T20:31:26.000Z" title="發表於 2023-04-21 04:31:26">2023-04-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/29/cpp1/" title="C++"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003323.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++"/></a><div class="content"><a class="title" href="/2023/03/29/cpp1/" title="C++">C++</a><time datetime="2023-03-28T20:31:26.000Z" title="發表於 2023-03-29 04:31:26">2023-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/23/django1/" title="Django1-簡介"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django1-簡介"/></a><div class="content"><a class="title" href="/2022/12/23/django1/" title="Django1-簡介">Django1-簡介</a><time datetime="2022-12-22T20:31:26.000Z" title="發表於 2022-12-23 04:31:26">2022-12-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By D.VaGary</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主題 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="閱讀模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="簡繁轉換">繁</button><button id="darkmode" type="button" title="淺色和深色模式轉換"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="單欄和雙欄切換"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="設定"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目錄"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直達評論"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到頂部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜尋</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  資料庫載入中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜尋文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : ''
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'KRwnYKvfhHUtxrxXi6EMctLn-MdYXbMMI',
+      appKey: '6Be1unBSqa33Q3Qvr57Xw9I0',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: {"tv_doge":"6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png","tv_親親":"a8111ad55953ef5e3be3327ef94eb4a39d535d06.png","tv_偷笑":"bb690d4107620f1c15cff29509db529a73aee261.png","tv_再見":"180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png","tv_冷漠":"b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png","tv_發怒":"34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png","tv_發財":"34db290afd2963723c6eb3c4560667db7253a21a.png","tv_可愛":"9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png","tv_吐血":"09dd16a7aa59b77baa1155d47484409624470c77.png","tv_呆":"fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png","tv_嘔吐":"9f996894a39e282ccf5e66856af49483f81870f3.png","tv_困":"241ee304e44c0af029adceb294399391e4737ef2.png","tv_壞笑":"1f0b87f731a671079842116e0991c91c2c88645a.png","tv_大佬":"093c1e2c490161aca397afc45573c877cdead616.png","tv_大哭":"23269aeb35f99daee28dda129676f6e9ea87934f.png","tv_委屈":"d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png","tv_害羞":"a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png","tv_尷尬":"7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png","tv_微笑":"70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png","tv_思考":"90cf159733e558137ed20aa04d09964436f618a1.png","tv_驚嚇":"0d15c7e2ee58e935adc6a7193ee042388adc22af.png"},
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function loadLivere () {
+  if (typeof LivereTower === 'object') {
+    window.LivereTower.init()
+  }
+  else {
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  }
+}
+
+if ('Valine' === 'Livere' || !false) {
+  if (false) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+  else loadLivere()
+}
+else {
+  function loadOtherComment () {
+    loadLivere()
+  }
+}</script></div><script id="canvas_nest" defer="defer" color="176,224,230" opacity="0.7" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

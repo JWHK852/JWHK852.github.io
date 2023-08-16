@@ -1,0 +1,488 @@
+<!DOCTYPE html><html lang="zh-TW" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Network1-網絡概述 | D.VaGary</title><meta name="keywords" content="網絡"><meta name="author" content="D.VaGary"><meta name="copyright" content="D.VaGary"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="網絡概述  計算機網絡就是把個個計算機連接到一起，讓網絡中的計算機可以互相通信。網絡編程就是如何在程序中實現兩台計算機的通信   IPv4包頭結構   版本號（Version）  長度4比特。標識目前採用的IP協議的版本號。一般的值為0100（IPv4），IPv6的值（0110）   IP包頭長度（HeaderLength）  長度4比特。這個字段的作用是為了描述IP包頭的長度，因為在IP包頭中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Network1-網絡概述">
+<meta property="og:url" content="https://blog.dvagary.com/2020/08/27/network1/index.html">
+<meta property="og:site_name" content="D.VaGary">
+<meta property="og:description" content="網絡概述  計算機網絡就是把個個計算機連接到一起，讓網絡中的計算機可以互相通信。網絡編程就是如何在程序中實現兩台計算機的通信   IPv4包頭結構   版本號（Version）  長度4比特。標識目前採用的IP協議的版本號。一般的值為0100（IPv4），IPv6的值（0110）   IP包頭長度（HeaderLength）  長度4比特。這個字段的作用是為了描述IP包頭的長度，因為在IP包頭中">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://raw.githubusercontent.com/JWHK852/image/master/1585284239608.png">
+<meta property="article:published_time" content="2020-08-26T20:36:46.000Z">
+<meta property="article:modified_time" content="2020-08-27T08:22:34.451Z">
+<meta property="article:author" content="D.VaGary">
+<meta property="article:tag" content="網絡">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/JWHK852/image/master/1585284239608.png"><link rel="shortcut icon" href="/img/icon.png"><link rel="canonical" href="https://blog.dvagary.com/2020/08/27/network1/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查詢的內容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '複製成功',
+    error: '複製錯誤',
+    noSupport: '瀏覽器不支援'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '剛剛',
+    min: '分鐘前',
+    hour: '小時前',
+    day: '天前',
+    month: '個月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切換為繁體","cht_to_chs":"你已切換為簡體","day_to_night":"你已切換為深色模式","night_to_day":"你已切換為淺色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Network1-網絡概述',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-08-27 16:22:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><script src="../live2d-widget/autoload.js"></script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">載入中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">102</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">39</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">5</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 檔案室</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 關於我</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娛樂</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 遊戲</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相冊</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 電影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 鏈接區</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://raw.githubusercontent.com/JWHK852/image/master/1585284239608.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">D.VaGary</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜尋</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 檔案室</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 關於我</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娛樂</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 遊戲</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相冊</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 電影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 鏈接區</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Network1-網絡概述</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">發表於</span><time class="post-meta-date-created" datetime="2020-08-26T20:36:46.000Z" title="發表於 2020-08-27 04:36:46">2020-08-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新於</span><time class="post-meta-date-updated" datetime="2020-08-27T08:22:34.451Z" title="更新於 2020-08-27 16:22:34">2020-08-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%B6%B2%E7%B5%A1/">網絡</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Network1-網絡概述"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">閱讀量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="網絡概述"><a class="markdownIt-Anchor" href="#網絡概述"></a> 網絡概述</h1>
+<ul>
+<li>計算機網絡就是把個個計算機連接到一起，讓網絡中的計算機可以互相通信。網絡編程就是如何在程序中實現兩台計算機的通信</li>
+</ul>
+<h1 id="ipv4包頭結構"><a class="markdownIt-Anchor" href="#ipv4包頭結構"></a> IPv4包頭結構</h1>
+<p><img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-08-27_02-31-19.png" alt="" /></p>
+<h2 id="版本號version"><a class="markdownIt-Anchor" href="#版本號version"></a> 版本號（Version）</h2>
+<ul>
+<li>長度4比特。標識目前採用的IP協議的版本號。一般的值為0100（IPv4），IPv6的值（0110）</li>
+</ul>
+<h2 id="ip包頭長度headerlength"><a class="markdownIt-Anchor" href="#ip包頭長度headerlength"></a> IP包頭長度（HeaderLength）</h2>
+<ul>
+<li>長度4比特。這個字段的作用是為了描述IP包頭的長度，因為在IP包頭中有變長的可選部分。 IP包頭最小長度為20字節，由於變長的可選部分，最大長度可能會變成60字節。</li>
+</ul>
+<h2 id="服務類型typeofservice"><a class="markdownIt-Anchor" href="#服務類型typeofservice"></a> 服務類型（TypeofService）</h2>
+<ul>
+<li>長度8比特。這個子段可以拆分成兩個部分：Precedence和TOS。 Precedence用來設置數據包的優先級，TOS允許按照吞吐量、時延、可靠性和費用方式選擇傳輸服務，目前基本已不使用，現在TOS已經作為區分服務架構的一部分被重新定義了，被稱為CoS，使用6個位構成了區分代碼點DSCP，最多可以定義64個不同的服務類別。</li>
+</ul>
+<h2 id="ip包總長totallength"><a class="markdownIt-Anchor" href="#ip包總長totallength"></a> IP包總長（TotalLength）</h2>
+<ul>
+<li>長度16比特。 IP包最大長度65535字節（16位長的二進制最大表示）。<br />
+5，標識符（Identifier）:長度16比特。該字段和Flags和FragmentOffest字段聯合使用，對大的上層數據包進行分段（fragment）操作。</li>
+</ul>
+<h2 id="標記flags"><a class="markdownIt-Anchor" href="#標記flags"></a> 標記（Flags）</h2>
+<ul>
+<li>長度3比特。該字段第一位不使用。第二位是DF位，DF位設為1時表明路由器不能對該上層數據包分段。如果一個上層數據包無法在不分段的情況下進行轉發，則路由器會丟棄該上層數據包並返回一個錯誤信息。第三位是更多分段（MF）位，當路由器對一個上層數據包分段，除了最後一個分段的MF為0外，其它所有分段的MF位均為1，直到接受到MF位為0的分段說明數據結束。</li>
+</ul>
+<h2 id="分段偏移fragmentoffset"><a class="markdownIt-Anchor" href="#分段偏移fragmentoffset"></a> 分段偏移（FragmentOffset）</h2>
+<ul>
+<li>長度13比特。該字段對包含分段的上層數據包的IP包賦予序號。由於IP包在網絡上傳送的時候不一定能按順序到達，這個字段保證了目標路由器在接受到IP包之後能夠還原分段的上層數據包。到某個包含分段的上層數據包的IP包在傳送是丟失，則整個一系列包含分段的上層數據包的IP包都會被要求重傳。因此，容易發生故障的數據鏈路會造成時延不成比例。另外，如果由於網絡擁塞造成分段丟失，那麼重傳整段分組會進一步加重網絡擁塞。</li>
+</ul>
+<h2 id="生存時間ttl"><a class="markdownIt-Anchor" href="#生存時間ttl"></a> 生存時間（TTL）</h2>
+<ul>
+<li>長度8比特。當IP包進行傳送時，先會對該字段賦予某個特定的值。當IP包經過每一個沿途的路由器的時候，每個沿途的路由器會將IP包的TTL值減少1。如果TTL減少為0，則該IP包會被丟棄。這個字段可以防止由於故障而導致IP包在網絡中不停被轉發。TTL常用的值是15和32，但是建議缺省值是64.</li>
+</ul>
+<h2 id="協議protocol"><a class="markdownIt-Anchor" href="#協議protocol"></a> 協議（Protocol）</h2>
+<ul>
+<li>長度8比特。標識了上層所使用的協議。比如：<code>TCP/6</code>、<code>UDP/17</code>、<code>EIGRP/88</code>、<code>OSPF/89</code>。</li>
+</ul>
+<h2 id="頭部校驗headerchecksum"><a class="markdownIt-Anchor" href="#頭部校驗headerchecksum"></a> 頭部校驗（HeaderChecksum）</h2>
+<ul>
+<li>長度16位，由於IP包頭是變長的，所以提供一個頭部校驗來保證IP包頭中信息的正確性。如果數據包沒有發送錯誤，那麼結果應該16位全部為1，由於每一台路由器都會降低TTL的值，所以每台路由器都必須重新計算校驗和。</li>
+</ul>
+<h2 id="源和目標地址sourceanddestinationaddresses"><a class="markdownIt-Anchor" href="#源和目標地址sourceanddestinationaddresses"></a> 源和目標地址（SourceandDestinationAddresses）</h2>
+<ul>
+<li>這兩個地段都是32比特。標識了這個IP包的起源和目標地址。</li>
+</ul>
+<h2 id="可選項options"><a class="markdownIt-Anchor" href="#可選項options"></a> 可選項（Options）</h2>
+<ul>
+<li>這是一個可變長的字段。該字段由起源設備根據需要改寫。可選項目包含以下內容：
+<ol>
+<li>鬆散源路由（Loosesourcerouting）：給出一連串路由器接口的IP地址。IP包必須沿著這些IP地址傳送，但是允許在相繼的兩個IP地址之間跳過多個路由器。</li>
+<li>嚴格源路由（Strictsourcerouting）：給出一連串路由器接口的IP地址。 IP包必須沿著這些IP地址傳送，如果下一跳不在IP地址表中則表示發生錯誤。</li>
+<li>路由記錄（Recordroute）：當IP包離開每個路由器的時候記錄路由器的出站接口的IP地址。</li>
+<li>時間戳（Timestamps）：當IP包離開每個路由器的時候記錄時間。</li>
+</ol>
+</li>
+</ul>
+<h2 id="填充項padding"><a class="markdownIt-Anchor" href="#填充項padding"></a> 填充項（Padding）</h2>
+<ul>
+<li>通過在可選字段後面添加0來補足32位，這樣保證報頭長度是32位的倍數。</li>
+</ul>
+<h1 id="網絡七層協議"><a class="markdownIt-Anchor" href="#網絡七層協議"></a> 網絡七層協議</h1>
+<p><img src="https://raw.githubusercontent.com/JWHK852/image/master/%E6%9C%AA%E6%A0%87%E9%A2%98-1.png" alt="" /></p>
+<h2 id="應用層"><a class="markdownIt-Anchor" href="#應用層"></a> 應用層</h2>
+<p>與其它計算機進行通訊的一個應用，它是對應應用程序的通信服務的。例如，一個沒有通信功能的字處理程序就不能執行通信的代碼，從事字處理工作的程序員也不關心OSI的第7層。但是，如果添加了一個傳輸文件的選項，那麼字處理器的程序就需要實現OSI的第7層。示例：<code>TELNET</code>，<code>HTTP</code>，<code>FTP</code>，<code>NFS</code>，<code>SMTP</code>等。</p>
+<h2 id="表示層"><a class="markdownIt-Anchor" href="#表示層"></a> 表示層</h2>
+<p>這一層的主要功能是定義數據格式及加密。例如，FTP允許你選擇以二進制或ASCII格式傳輸。如果選擇二進制，那麼發送方和接收方不改變文件的內容。如果選擇ASCII格式，發送方將把文本從發送方的字符集轉換成標準的ASCII後發送數據。在接收方將標準的ASCII轉換成接收方計算機的字符集。示例：<code>加密</code>，<code>ASCII</code>等。</p>
+<h2 id="會話層"><a class="markdownIt-Anchor" href="#會話層"></a> 會話層</h2>
+<p>它定義瞭如何開始、控制和結束一個會話，包括對多個雙向消息的控制和管理，以便在只完成連續消息的一部分時可以通知應用，從而使表示層看到的數據是連續的，在某些情況下，如果表示層收到了所有的數據，則用數據代表表示層。示例：<code>RPC</code>，<code>SQL</code>等。</p>
+<h2 id="傳輸層"><a class="markdownIt-Anchor" href="#傳輸層"></a> 傳輸層</h2>
+<p>這層的功能包括是否選擇差錯恢復協議還是無差錯恢復協議，及在同一主機上對不同應用的數據流的輸入進行復用，還包括對收到的順序不對的數據包的重新排序功能。示例：<code>TCP</code>，<code>UDP</code>，<code>SPX</code>。</p>
+<h2 id="網絡層"><a class="markdownIt-Anchor" href="#網絡層"></a> 網絡層</h2>
+<p>這層對端到端的包傳輸進行定義，它定義了能夠標識所有結點的邏輯地址，還定義了路由實現的方式和學習的方式。爲了適應最大傳輸單元長度小於包長度的傳輸介質，網絡層還定義瞭如何將一個包分解成更小的包的分段方法。示例：IP，IPX等。</p>
+<h2 id="數據鏈路層"><a class="markdownIt-Anchor" href="#數據鏈路層"></a> 數據鏈路層</h2>
+<p>它定義了在單個鏈路上如何傳輸數據。這些協議與被討論的各種介質有關。示例：<code>ATM</code>，<code>FDDI</code>等。</p>
+<h2 id="物理層"><a class="markdownIt-Anchor" href="#物理層"></a> 物理層</h2>
+<p>OSI的物理層規範是有關傳輸介質的特性，這些規範通常也參考了其他組織制定的標準。連接頭、幀、幀的使用、電流、編碼及光調製等都屬於各種物理層規範中的內容。物理層常用多個規範完成對所有細節的定義。示例：Rj45，802.3等。</p>
+<h1 id="tcp包頭結構"><a class="markdownIt-Anchor" href="#tcp包頭結構"></a> TCP包頭結構</h1>
+<h2 id="tcp包首部"><a class="markdownIt-Anchor" href="#tcp包首部"></a> TCP包首部</h2>
+<p><img src="https://raw.githubusercontent.com/JWHK852/image/master/u%3D3431331886%2C1681986043%26fm%3D26%26gp%3D0.png" alt="" /></p>
+<h2 id="tcp源端口"><a class="markdownIt-Anchor" href="#tcp源端口"></a> TCP源端口</h2>
+<ul>
+<li>16位的源端口包含初始化通信的端口號</li>
+<li>源端口和源IP地址的作用是標識報文的返回地址</li>
+</ul>
+<h2 id="tcp目的端口"><a class="markdownIt-Anchor" href="#tcp目的端口"></a> TCP目的端口</h2>
+<ul>
+<li>16位的目的端口域定義傳輸的目的</li>
+<li>這個端口指明報文接受計算機上的應用程序地址端口</li>
+</ul>
+<h2 id="tcp序列號"><a class="markdownIt-Anchor" href="#tcp序列號"></a> TCP序列號</h2>
+<ul>
+<li>32位的序列號由接收端計算機使用，重組分段的報文成最初形式</li>
+</ul>
+<h2 id="tcp應答號"><a class="markdownIt-Anchor" href="#tcp應答號"></a> TCP應答號</h2>
+<ul>
+<li>TCP使用32位的應答（ACK）域標識下一個希望收到的報文的第一個字節</li>
+</ul>
+<h2 id="數據偏移"><a class="markdownIt-Anchor" href="#數據偏移"></a> 數據偏移</h2>
+<ul>
+<li>這個4位域包括TCP頭大小</li>
+<li>以32位數據結構或稱為<code>雙字</code>為單位</li>
+</ul>
+<h2 id="保留"><a class="markdownIt-Anchor" href="#保留"></a> 保留</h2>
+<ul>
+<li>6位恆置0的域</li>
+<li>為將來定義新的用途保留</li>
+</ul>
+<h2 id="標誌"><a class="markdownIt-Anchor" href="#標誌"></a> 標誌</h2>
+<ul>
+<li>6位標誌域，每1位標誌可以打開一個控制功能</li>
+<li>這六個標誌是:緊急標誌、有意義的應答標誌、推、重置連接標誌、同步序列號標誌、完成發送數據標誌</li>
+</ul>
+<h2 id="窗口大小"><a class="markdownIt-Anchor" href="#窗口大小"></a> 窗口大小</h2>
+<ul>
+<li>目的機使用16位的域告訴源主機，它想收到的每個TCP數據段大小</li>
+</ul>
+<h2 id="校驗和"><a class="markdownIt-Anchor" href="#校驗和"></a> 校驗和</h2>
+<ul>
+<li>TCP頭也包括16位的錯誤檢查域——“校驗和”域</li>
+</ul>
+<h2 id="緊急"><a class="markdownIt-Anchor" href="#緊急"></a> 緊急</h2>
+<ul>
+<li>緊急指針域是一個可選的16位指針，指向段內的最後一個字節位置，這個域只在URG標誌設置了時才有效</li>
+</ul>
+<h2 id="選項"><a class="markdownIt-Anchor" href="#選項"></a> 選項</h2>
+<ul>
+<li>至少1字節的可變長域標識哪個選項</li>
+</ul>
+<h2 id="數據"><a class="markdownIt-Anchor" href="#數據"></a> 數據</h2>
+<ul>
+<li>域的大小是最大的MSS，MSS可以在源和目的機器之間協商</li>
+</ul>
+<h2 id="填充"><a class="markdownIt-Anchor" href="#填充"></a> 填充</h2>
+<ul>
+<li>其目的是確保空間的可預測性、定時和規範大小其目的是確保空間的可預測性、定時和規範大小</li>
+<li>這個域中加入額外的零以保證TCP頭是32位的整數倍</li>
+</ul>
+<h1 id="tcpip協議"><a class="markdownIt-Anchor" href="#tcpip協議"></a> TCP/IP協議</h1>
+<h2 id="ip協議"><a class="markdownIt-Anchor" href="#ip協議"></a> IP協議</h2>
+<ul>
+<li>
+<p>按層次分，IP（Internet Protocol）網際協議位於網絡層。InternetProtocol，幾乎所有使用網絡的系統都會用到 IP 協議。TCP/IP 協議族中的 IP指的就是網際協議。可能有人會把“IP”和“IP 地址”搞混，“IP”其實是一種協議的名稱。</p>
+</li>
+<li>
+<p>IP 協議的作用是把各種數據包傳送給對方。而要保證確實傳送到對方那裏，則需要滿足各類條件。其中兩個重要的條件是 IP 地址和 MAC地址（Media Access Control Address）。</p>
+</li>
+<li>
+<p>IP 地址指明瞭節點被分配到的地址，MAC 地址是指網卡所屬的固定地址。IP 地址可以和 MAC 地址進行配對。IP 地址可變換，但 MAC地址基本上不會更改。</p>
+</li>
+<li>
+<p>使用 ARP 協議憑藉 MAC 地址進行通信IP 間的通信依賴 MAC地址。在網絡上，通信的雙方在同一局域網（LAN）內的情況是很少的，通常是經過多臺計算機和網絡設備中轉才能連接到對方。而在進行中轉時，會利用下一站中轉設備的MAC地址來搜索下一個中轉目標。這時，會採用 ARP 協議（AddressResolution Protocol）。ARP是一種用以解析地址的協議，根據通信方的 IP 地址就可以反查出對應的 MAC 地址。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/JWHK852/image/master/v2-231c0d3c870174ec38971dd64e4995f2_720w.jpg" alt="" /></p>
+<h2 id="tcp協議"><a class="markdownIt-Anchor" href="#tcp協議"></a> TCP協議</h2>
+<ul>
+<li>
+<p>按層次分，TCP 位於傳輸層，提供可靠的字節流服務。</p>
+<ul>
+<li>所謂的字節流服務（Byte StreamService）是指，爲了方便傳輸，將大塊數據分割成以報文段（segment）爲單位的數據包進行管理。而可靠的傳輸服務是指，能夠把數據準確可靠地傳給對方。一言以蔽之，TCP協議爲了更容易傳送大數據才把數據分割，而且 TCP 協議能夠確認數據最終是否送達到對方。</li>
+</ul>
+</li>
+<li>
+<p>確保數據能到達目標</p>
+<ul>
+<li>爲了準確無誤地將數據送達目標處，TCP 協議採用了三次握手（three-way handshaking）策略。用 TCP協議把數據包送出去後，TCP不會對傳送後的情況置之不理，它一定會向對方確認是否成功送達。21握手過程中使用了 TCP 的標誌（flag） ——SYN（synchronize） 和ACK（acknowledgement）。</li>
+</ul>
+</li>
+<li>
+<p>發送端首先發送一個帶 SYN 標誌的數據包給對方。接收端收到後，回傳一個帶有 SYN/ACK 標誌的數據包以示傳達確認信息。最後，發送端再回傳一個帶 ACK 標誌的數據包，代表“握手”結束。</p>
+</li>
+<li>
+<p>若在握手過程中某個階段莫名中斷，TCP 協議會再次以相同的順序發送相同的數據包。</p>
+</li>
+<li>
+<p>注意的是：除了上述三次握手，TCP 協議還有其他各種手段來保證通信的可靠性。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/JWHK852/image/master/v2-ab9be497c3c02f49cac02240ebc5b3a5_720w.jpg" alt="" /></p>
+<h2 id="dns協議"><a class="markdownIt-Anchor" href="#dns協議"></a> DNS協議</h2>
+<ul>
+<li>
+<p>DNS（Domain Name System）服務是和 HTTP 協議一樣位於應用層的協議。它提供域名到 IP 地址之間的解析服務。</p>
+</li>
+<li>
+<p>計算機既可以被賦予 IP 地址，也可以被賦予主機名和域名。比如https://www.dvagary.com。</p>
+</li>
+<li>
+<p>用戶通常使用主機名或域名來訪問對方的計算機，而不是直接通過 IP地址訪問。因爲與 IP 地址的一組純數字相比，用字母配合數字的表示形式來指定計算機名更符合人類的記憶習慣。</p>
+</li>
+<li>
+<p>但要讓計算機去理解名稱，相對而言就變得困難了。因爲計算機更擅長處理一長串數字。</p>
+</li>
+<li>
+<p>爲了解決上述的問題，DNS 服務應運而生。DNS 協議提供通過域名查找 IP 地址，或逆向從 IP 地址反查域名的服務。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/JWHK852/image/master/v2-e16868f6d6ccbb120a34de3e4dde8805_720w.jpg" alt="" /></p>
+<h1 id="ip地址"><a class="markdownIt-Anchor" href="#ip地址"></a> ip地址</h1>
+<ul>
+<li>用來在網絡上標記一台電腦。例如192.168.1.1， 在本地局域網上是唯一的<br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-07-29_04-40-14.png" alt="" /></li>
+</ul>
+<h2 id="a類"><a class="markdownIt-Anchor" href="#a類"></a> A類</h2>
+<ul>
+<li>A類ip地址由1字節的網絡和3字節主機地址組成，網絡地址最高位必須是‘0’</li>
+<li>地址範圍1.0.0.1 - 126.255.255.254</li>
+<li>可用的A類網絡有126個，每個網絡能容納1677214個主機</li>
+</ul>
+<h2 id="b類"><a class="markdownIt-Anchor" href="#b類"></a> B類</h2>
+<ul>
+<li>B類ip地址由2字節的網絡和2字節主機地址組成，網絡地址最高位必須是‘10’</li>
+<li>地址範圍128.1.0.1 - 191.255.255.254</li>
+<li>可用的A類網絡有16384個，每個網絡能容納65534個主機</li>
+</ul>
+<h2 id="c類"><a class="markdownIt-Anchor" href="#c類"></a> C類</h2>
+<ul>
+<li>C類ip地址由3字節的網絡和1字節主機地址組成，網絡地址最高位必須是‘110’</li>
+<li>地址範圍192.0.1.1 - 223.255.255.254</li>
+<li>可用的A類網絡有2097152個，每個網絡能容納254個主機</li>
+</ul>
+<h2 id="d類"><a class="markdownIt-Anchor" href="#d類"></a> D類</h2>
+<ul>
+<li>D類ip地址第一個字節以‘1110’開始，它是一個專門保留的地址</li>
+<li>它並不指向特定的網絡，目前被用在多點廣播（Multicast）中</li>
+<li>多點廣播地址用來一次尋址一組計算機地址範圍224.0.0.1 - 239.255.255.254</li>
+</ul>
+<h2 id="e類"><a class="markdownIt-Anchor" href="#e類"></a> E類</h2>
+<ul>
+<li>以‘1111’開始，為將來使用保留</li>
+<li>E類地址保留，僅做實驗和開發用</li>
+</ul>
+<h2 id="私有ip地址"><a class="markdownIt-Anchor" href="#私有ip地址"></a> 私有ip地址</h2>
+<ul>
+<li>國際規定有一部分IP是用於局域網使用，屬於私網ip，不在公網使用</li>
+<li>他們的範圍是：
+<ul>
+<li>10.0.0.0 - 10.255.255.255</li>
+<li>172.16.0.0 - 172.31.255.255</li>
+<li>192.168.0.0 - 192.168.255.255</li>
+</ul>
+</li>
+</ul>
+<h2 id="注意"><a class="markdownIt-Anchor" href="#注意"></a> 注意</h2>
+<ul>
+<li>ip地址127.0.0.1 - 127.255.255.255用於迴路測試<br />
+如：127.0.0.1可以代表本機ip地址，用 <a target="_blank" rel="noopener" href="http://127.0.0.1">http://127.0.0.1</a> 就可以測試本機中配置的Web服務器。</li>
+</ul>
+<h1 id="端口"><a class="markdownIt-Anchor" href="#端口"></a> 端口</h1>
+<ul>
+<li>好比進出程序的門，端口號為門牌<br />
+端口0 - 1024（不包括1024）不能隨意用，1024 - 65534 可隨意使用。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">D.VaGary</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章連結: </span><span class="post-copyright-info"><a href="https://blog.dvagary.com/2020/08/27/network1/">https://blog.dvagary.com/2020/08/27/network1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版權聲明: </span><span class="post-copyright-info">本部落格所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 許可協議。轉載請註明來自 <a href="https://blog.dvagary.com" target="_blank">D.VaGary</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%B6%B2%E7%B5%A1/">網絡</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/JWHK852/image/master/1585284239608.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/08/27/network2/"><img class="prev-cover" src="https://raw.githubusercontent.com/JWHK852/image/master/1585284239608.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Network2-TCP,UDP</div></div></a></div><div class="next-post pull-right"><a href="/2020/08/26/codeandcommand/"><img class="next-cover" src="https://raw.githubusercontent.com/JWHK852/image/master/000-Online-Code-Editors.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">代碼庫</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相關推薦</span></div><div class="relatedPosts-list"><div><a href="/2020/08/27/network2/" title="Network2-TCP,UDP"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/1585284239608.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-27</div><div class="title">Network2-TCP,UDP</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 評論</span></div><div id="comment-switch"><span class="first-comment">Valine</span><span class="switch-btn"></span><span class="second-comment">Livere</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="lv-container" data-id="city" data-uid="MTAyMC81MDA0NS8yNjUzNg=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">D.VaGary</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">102</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">39</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">5</div></a></div></div><a class="button--animated" id="card-info-btn" href="tencent://message/?uin=1761087701&amp;Site=&amp;Menu=yes"><i class="fab fa-qq"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://open.spotify.com/playlist/2JjPHBAleYRxVAqiqBRCea?si=XZ3lRmLgSDaMuIzHtIpfrA" target="_blank" title="Spotify"><i class="fab fa-spotify"></i></a><a class="social-icon" href="https://steamcommunity.com/id/dvagary" target="_blank" title="Steam"><i class="fab fa-steam"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Pixiv日榜&nbsp;&nbsp;<i class="fas fa-images"></i><br><iframe src="https://cloud.mokeyjay.com/pixiv" frameborder="0"  style="width:240px; height:380px;"></iframe></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目錄</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B6%B2%E7%B5%A1%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text"> 網絡概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ipv4%E5%8C%85%E9%A0%AD%E7%B5%90%E6%A7%8B"><span class="toc-number">2.</span> <span class="toc-text"> IPv4包頭結構</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E8%99%9Fversion"><span class="toc-number">2.1.</span> <span class="toc-text"> 版本號（Version）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ip%E5%8C%85%E9%A0%AD%E9%95%B7%E5%BA%A6headerlength"><span class="toc-number">2.2.</span> <span class="toc-text"> IP包頭長度（HeaderLength）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8B%99%E9%A1%9E%E5%9E%8Btypeofservice"><span class="toc-number">2.3.</span> <span class="toc-text"> 服務類型（TypeofService）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ip%E5%8C%85%E7%B8%BD%E9%95%B7totallength"><span class="toc-number">2.4.</span> <span class="toc-text"> IP包總長（TotalLength）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%99%E8%A8%98flags"><span class="toc-number">2.5.</span> <span class="toc-text"> 標記（Flags）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%AE%B5%E5%81%8F%E7%A7%BBfragmentoffset"><span class="toc-number">2.6.</span> <span class="toc-text"> 分段偏移（FragmentOffset）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%AD%98%E6%99%82%E9%96%93ttl"><span class="toc-number">2.7.</span> <span class="toc-text"> 生存時間（TTL）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%94%E8%AD%B0protocol"><span class="toc-number">2.8.</span> <span class="toc-text"> 協議（Protocol）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A0%AD%E9%83%A8%E6%A0%A1%E9%A9%97headerchecksum"><span class="toc-number">2.9.</span> <span class="toc-text"> 頭部校驗（HeaderChecksum）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E5%92%8C%E7%9B%AE%E6%A8%99%E5%9C%B0%E5%9D%80sourceanddestinationaddresses"><span class="toc-number">2.10.</span> <span class="toc-text"> 源和目標地址（SourceandDestinationAddresses）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E9%81%B8%E9%A0%85options"><span class="toc-number">2.11.</span> <span class="toc-text"> 可選項（Options）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A1%AB%E5%85%85%E9%A0%85padding"><span class="toc-number">2.12.</span> <span class="toc-text"> 填充項（Padding）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B6%B2%E7%B5%A1%E4%B8%83%E5%B1%A4%E5%8D%94%E8%AD%B0"><span class="toc-number">3.</span> <span class="toc-text"> 網絡七層協議</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%87%89%E7%94%A8%E5%B1%A4"><span class="toc-number">3.1.</span> <span class="toc-text"> 應用層</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E7%A4%BA%E5%B1%A4"><span class="toc-number">3.2.</span> <span class="toc-text"> 表示層</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%83%E8%A9%B1%E5%B1%A4"><span class="toc-number">3.3.</span> <span class="toc-text"> 會話層</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%82%B3%E8%BC%B8%E5%B1%A4"><span class="toc-number">3.4.</span> <span class="toc-text"> 傳輸層</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B6%B2%E7%B5%A1%E5%B1%A4"><span class="toc-number">3.5.</span> <span class="toc-text"> 網絡層</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E9%8F%88%E8%B7%AF%E5%B1%A4"><span class="toc-number">3.6.</span> <span class="toc-text"> 數據鏈路層</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%B1%A4"><span class="toc-number">3.7.</span> <span class="toc-text"> 物理層</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcp%E5%8C%85%E9%A0%AD%E7%B5%90%E6%A7%8B"><span class="toc-number">4.</span> <span class="toc-text"> TCP包頭結構</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp%E5%8C%85%E9%A6%96%E9%83%A8"><span class="toc-number">4.1.</span> <span class="toc-text"> TCP包首部</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp%E6%BA%90%E7%AB%AF%E5%8F%A3"><span class="toc-number">4.2.</span> <span class="toc-text"> TCP源端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp%E7%9B%AE%E7%9A%84%E7%AB%AF%E5%8F%A3"><span class="toc-number">4.3.</span> <span class="toc-text"> TCP目的端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp%E5%BA%8F%E5%88%97%E8%99%9F"><span class="toc-number">4.4.</span> <span class="toc-text"> TCP序列號</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp%E6%87%89%E7%AD%94%E8%99%9F"><span class="toc-number">4.5.</span> <span class="toc-text"> TCP應答號</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E5%81%8F%E7%A7%BB"><span class="toc-number">4.6.</span> <span class="toc-text"> 數據偏移</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%9D%E7%95%99"><span class="toc-number">4.7.</span> <span class="toc-text"> 保留</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%99%E8%AA%8C"><span class="toc-number">4.8.</span> <span class="toc-text"> 標誌</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E5%A4%A7%E5%B0%8F"><span class="toc-number">4.9.</span> <span class="toc-text"> 窗口大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%A1%E9%A9%97%E5%92%8C"><span class="toc-number">4.10.</span> <span class="toc-text"> 校驗和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B7%8A%E6%80%A5"><span class="toc-number">4.11.</span> <span class="toc-text"> 緊急</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%B8%E9%A0%85"><span class="toc-number">4.12.</span> <span class="toc-text"> 選項</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B8%E6%93%9A"><span class="toc-number">4.13.</span> <span class="toc-text"> 數據</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A1%AB%E5%85%85"><span class="toc-number">4.14.</span> <span class="toc-text"> 填充</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcpip%E5%8D%94%E8%AD%B0"><span class="toc-number">5.</span> <span class="toc-text"> TCP&#x2F;IP協議</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ip%E5%8D%94%E8%AD%B0"><span class="toc-number">5.1.</span> <span class="toc-text"> IP協議</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp%E5%8D%94%E8%AD%B0"><span class="toc-number">5.2.</span> <span class="toc-text"> TCP協議</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dns%E5%8D%94%E8%AD%B0"><span class="toc-number">5.3.</span> <span class="toc-text"> DNS協議</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ip%E5%9C%B0%E5%9D%80"><span class="toc-number">6.</span> <span class="toc-text"> ip地址</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#a%E9%A1%9E"><span class="toc-number">6.1.</span> <span class="toc-text"> A類</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#b%E9%A1%9E"><span class="toc-number">6.2.</span> <span class="toc-text"> B類</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#c%E9%A1%9E"><span class="toc-number">6.3.</span> <span class="toc-text"> C類</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#d%E9%A1%9E"><span class="toc-number">6.4.</span> <span class="toc-text"> D類</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#e%E9%A1%9E"><span class="toc-number">6.5.</span> <span class="toc-text"> E類</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%81%E6%9C%89ip%E5%9C%B0%E5%9D%80"><span class="toc-number">6.6.</span> <span class="toc-text"> 私有ip地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-number">6.7.</span> <span class="toc-text"> 注意</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3"><span class="toc-number">7.</span> <span class="toc-text"> 端口</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/06/23/django5/" title="Django5-部署"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django5-部署"/></a><div class="content"><a class="title" href="/2023/06/23/django5/" title="Django5-部署">Django5-部署</a><time datetime="2023-06-22T20:31:26.000Z" title="發表於 2023-06-23 04:31:26">2023-06-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/01/cpp_pointer/" title="C++-Pointer"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003323.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++-Pointer"/></a><div class="content"><a class="title" href="/2023/05/01/cpp_pointer/" title="C++-Pointer">C++-Pointer</a><time datetime="2023-04-30T20:31:26.000Z" title="發表於 2023-05-01 04:31:26">2023-05-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/21/django4/" title="Django4-完整開發案例"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django4-完整開發案例"/></a><div class="content"><a class="title" href="/2023/04/21/django4/" title="Django4-完整開發案例">Django4-完整開發案例</a><time datetime="2023-04-20T20:31:26.000Z" title="發表於 2023-04-21 04:31:26">2023-04-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/29/cpp1/" title="C++"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003323.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++"/></a><div class="content"><a class="title" href="/2023/03/29/cpp1/" title="C++">C++</a><time datetime="2023-03-28T20:31:26.000Z" title="發表於 2023-03-29 04:31:26">2023-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/23/django1/" title="Django1-簡介"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django1-簡介"/></a><div class="content"><a class="title" href="/2022/12/23/django1/" title="Django1-簡介">Django1-簡介</a><time datetime="2022-12-22T20:31:26.000Z" title="發表於 2022-12-23 04:31:26">2022-12-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://raw.githubusercontent.com/JWHK852/image/master/1585284239608.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By D.VaGary</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主題 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="閱讀模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="簡繁轉換">繁</button><button id="darkmode" type="button" title="淺色和深色模式轉換"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="單欄和雙欄切換"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="設定"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目錄"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直達評論"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到頂部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜尋</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  資料庫載入中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜尋文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : ''
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'KRwnYKvfhHUtxrxXi6EMctLn-MdYXbMMI',
+      appKey: '6Be1unBSqa33Q3Qvr57Xw9I0',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: {"tv_doge":"6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png","tv_親親":"a8111ad55953ef5e3be3327ef94eb4a39d535d06.png","tv_偷笑":"bb690d4107620f1c15cff29509db529a73aee261.png","tv_再見":"180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png","tv_冷漠":"b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png","tv_發怒":"34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png","tv_發財":"34db290afd2963723c6eb3c4560667db7253a21a.png","tv_可愛":"9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png","tv_吐血":"09dd16a7aa59b77baa1155d47484409624470c77.png","tv_呆":"fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png","tv_嘔吐":"9f996894a39e282ccf5e66856af49483f81870f3.png","tv_困":"241ee304e44c0af029adceb294399391e4737ef2.png","tv_壞笑":"1f0b87f731a671079842116e0991c91c2c88645a.png","tv_大佬":"093c1e2c490161aca397afc45573c877cdead616.png","tv_大哭":"23269aeb35f99daee28dda129676f6e9ea87934f.png","tv_委屈":"d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png","tv_害羞":"a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png","tv_尷尬":"7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png","tv_微笑":"70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png","tv_思考":"90cf159733e558137ed20aa04d09964436f618a1.png","tv_驚嚇":"0d15c7e2ee58e935adc6a7193ee042388adc22af.png"},
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function loadLivere () {
+  if (typeof LivereTower === 'object') {
+    window.LivereTower.init()
+  }
+  else {
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  }
+}
+
+if ('Valine' === 'Livere' || !false) {
+  if (false) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+  else loadLivere()
+}
+else {
+  function loadOtherComment () {
+    loadLivere()
+  }
+}</script></div><script id="canvas_nest" defer="defer" color="176,224,230" opacity="0.7" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
