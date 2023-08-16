@@ -1,0 +1,885 @@
+<!DOCTYPE html><html lang="zh-TW" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Python48-MongoDB | D.VaGary</title><meta name="keywords" content="Python,MongoDB,數據庫"><meta name="author" content="D.VaGary"><meta name="copyright" content="D.VaGary"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="NoSQL簡介  全名：Not Only SQL，指的是非關係型的數據庫 隨著訪問量的上升，網站的數據庫的性能出現了問題，於是nosql被設計出來   優點  高可拓展性 分佈式計算 低成本 架構的靈活性，半結構化的數據 沒有複雜的關係   缺點  沒有標準化 有限的查詢功能（目前為止） 最終一致是不直觀的程序   分類  列存儲  代表  Hbase Cassandra Hypertable">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python48-MongoDB">
+<meta property="og:url" content="https://blog.dvagary.com/2020/09/01/python48/index.html">
+<meta property="og:site_name" content="D.VaGary">
+<meta property="og:description" content="NoSQL簡介  全名：Not Only SQL，指的是非關係型的數據庫 隨著訪問量的上升，網站的數據庫的性能出現了問題，於是nosql被設計出來   優點  高可拓展性 分佈式計算 低成本 架構的靈活性，半結構化的數據 沒有複雜的關係   缺點  沒有標準化 有限的查詢功能（目前為止） 最終一致是不直觀的程序   分類  列存儲  代表  Hbase Cassandra Hypertable">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://raw.githubusercontent.com/JWHK852/image/master/mongodbpy.png">
+<meta property="article:published_time" content="2020-09-01T10:42:25.000Z">
+<meta property="article:modified_time" content="2020-09-03T08:42:42.783Z">
+<meta property="article:author" content="D.VaGary">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="MongoDB">
+<meta property="article:tag" content="數據庫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/JWHK852/image/master/mongodbpy.png"><link rel="shortcut icon" href="/img/icon.png"><link rel="canonical" href="https://blog.dvagary.com/2020/09/01/python48/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查詢的內容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '複製成功',
+    error: '複製錯誤',
+    noSupport: '瀏覽器不支援'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '剛剛',
+    min: '分鐘前',
+    hour: '小時前',
+    day: '天前',
+    month: '個月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切換為繁體","cht_to_chs":"你已切換為簡體","day_to_night":"你已切換為深色模式","night_to_day":"你已切換為淺色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Python48-MongoDB',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-09-03 16:42:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><script src="../live2d-widget/autoload.js"></script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">載入中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">102</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">39</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">5</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 檔案室</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 關於我</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娛樂</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 遊戲</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相冊</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 電影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 鏈接區</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://raw.githubusercontent.com/JWHK852/image/master/mongodbpy.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">D.VaGary</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜尋</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 檔案室</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 關於我</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娛樂</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 遊戲</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相冊</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 電影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 鏈接區</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python48-MongoDB</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">發表於</span><time class="post-meta-date-created" datetime="2020-09-01T10:42:25.000Z" title="發表於 2020-09-01 18:42:25">2020-09-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新於</span><time class="post-meta-date-updated" datetime="2020-09-03T08:42:42.783Z" title="更新於 2020-09-03 16:42:42">2020-09-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%A8%88%E7%AE%97%E6%A9%9F%E8%AA%9E%E8%A8%80/">計算機語言</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python48-MongoDB"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">閱讀量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="nosql簡介"><a class="markdownIt-Anchor" href="#nosql簡介"></a> NoSQL簡介</h1>
+<ul>
+<li>全名：Not Only SQL，指的是非關係型的數據庫</li>
+<li>隨著訪問量的上升，網站的數據庫的性能出現了問題，於是<code>nosql</code>被設計出來</li>
+</ul>
+<h2 id="優點"><a class="markdownIt-Anchor" href="#優點"></a> 優點</h2>
+<ul>
+<li>高可拓展性</li>
+<li>分佈式計算</li>
+<li>低成本</li>
+<li>架構的靈活性，半結構化的數據</li>
+<li>沒有複雜的關係</li>
+</ul>
+<h2 id="缺點"><a class="markdownIt-Anchor" href="#缺點"></a> 缺點</h2>
+<ul>
+<li>沒有標準化</li>
+<li>有限的查詢功能（目前為止）</li>
+<li>最終一致是不直觀的程序</li>
+</ul>
+<h2 id="分類"><a class="markdownIt-Anchor" href="#分類"></a> 分類</h2>
+<h3 id="列存儲"><a class="markdownIt-Anchor" href="#列存儲"></a> 列存儲</h3>
+<ul>
+<li>代表
+<ul>
+<li>Hbase</li>
+<li>Cassandra</li>
+<li>Hypertable</li>
+</ul>
+</li>
+<li>特點
+<ul>
+<li>是按列存儲數據的。最大的特點是方便存儲結構化或半結構化數據，方便做數據壓縮，對針對某一列的或者幾列的查詢有非常大的IO優勢</li>
+</ul>
+</li>
+</ul>
+<h3 id="文檔存儲"><a class="markdownIt-Anchor" href="#文檔存儲"></a> 文檔存儲</h3>
+<ul>
+<li>代表
+<ul>
+<li>MongoDB</li>
+<li>CouchDB</li>
+</ul>
+</li>
+<li>特點
+<ul>
+<li>文件儲存一般用類似json的格式存儲，儲存的內容是文檔型的。這樣也就有機會對某些字段建立索引，實現關係數據庫的某些功能</li>
+</ul>
+</li>
+</ul>
+<h3 id="key-value存儲"><a class="markdownIt-Anchor" href="#key-value存儲"></a> key-value存儲</h3>
+<ul>
+<li>代表
+<ul>
+<li>Redis</li>
+<li>Tokyo Cabinet/Tyrant</li>
+<li>Berkeley DB</li>
+<li>MemcacheDB</li>
+</ul>
+</li>
+<li>特點
+<ul>
+<li>可以通過key快速查詢到value。一般來說，存儲不管value的格式。（Redis包含了其他功能）</li>
+</ul>
+</li>
+</ul>
+<h3 id="圖存儲"><a class="markdownIt-Anchor" href="#圖存儲"></a> 圖存儲</h3>
+<ul>
+<li>代表
+<ul>
+<li>Neo4J</li>
+<li>FlockDB</li>
+</ul>
+</li>
+<li>特點
+<ul>
+<li>圖形關係的最佳存儲，使用傳統關係數據庫來解決的話性能低下，而且設計使用不方便</li>
+</ul>
+</li>
+</ul>
+<h3 id="對象存儲"><a class="markdownIt-Anchor" href="#對象存儲"></a> 對象存儲</h3>
+<ul>
+<li>代表
+<ul>
+<li>db4o</li>
+<li>Versant</li>
+</ul>
+</li>
+<li>特點
+<ul>
+<li>通過類似面向對象語言的語法操作數據庫，通過對象的方式存儲數據</li>
+</ul>
+</li>
+</ul>
+<h3 id="xml數據庫"><a class="markdownIt-Anchor" href="#xml數據庫"></a> xml數據庫</h3>
+<ul>
+<li>代表
+<ul>
+<li>Berkeley DB XML</li>
+<li>baseX</li>
+</ul>
+</li>
+<li>特點
+<ul>
+<li>高效的存儲XML數據，並支持XML的內部查詢語法，比如XQuery，Xpath</li>
+</ul>
+</li>
+</ul>
+<h1 id="mongodb"><a class="markdownIt-Anchor" href="#mongodb"></a> MongoDB</h1>
+<ul>
+<li>MongoDB是一個基於分佈式文件存儲的數據庫。由C++語言編寫。旨在爲WEB應用提供可擴展的高性能數據存儲解決方案。</li>
+<li>MongoDB是一個介於關係數據庫和非關係數據庫之間的產品，是非關係數據庫當中功能最豐富，最像關係數據庫的。它支持的數據結構非常鬆散，是類似json的bson格式，因此可以存儲比較複雜的數據類型。Mongo最大的特點是它支持的查詢語言非常強大，其語法有點類似於面向對象的查詢語言，幾乎可以實現類似關係數據庫單表查詢的絕大部分功能，而且還支持對數據建立索引。</li>
+</ul>
+<h2 id="主要特點"><a class="markdownIt-Anchor" href="#主要特點"></a> 主要特點</h2>
+<ol>
+<li>面向集合存儲，易存儲對象類型的數據。</li>
+<li>模式自由。</li>
+<li>支持動態查詢。</li>
+<li>支持完全索引，包含內部對象。</li>
+<li>支持查詢。</li>
+<li>支持複製和故障恢復。</li>
+<li>使用高效的二進制數據存儲，包括大型對象（如影片等）。</li>
+<li>自動處理碎片，以支持雲計算層次的擴展性。</li>
+<li>支持 Golang，RUBY，PYTHON，JAVA，C++，PHP，C#等多種語言。</li>
+<li>文件存儲格式爲BSON（一種JSON的擴展）。</li>
+<li>可通過網絡訪問。</li>
+</ol>
+<h2 id="sql與mongodb概念"><a class="markdownIt-Anchor" href="#sql與mongodb概念"></a> SQL與MongoDB概念</h2>
+<table>
+<thead>
+<tr>
+<th>SQL術語/概念</th>
+<th>MongoDB術語/概念</th>
+<th>解釋/說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>database</td>
+<td>database</td>
+<td>數據庫</td>
+</tr>
+<tr>
+<td>table</td>
+<td>collection</td>
+<td>數據庫表/集合</td>
+</tr>
+<tr>
+<td>row</td>
+<td>document</td>
+<td>數據記錄行/文檔</td>
+</tr>
+<tr>
+<td>index</td>
+<td>field</td>
+<td>數據字段/域</td>
+</tr>
+<tr>
+<td>table joins</td>
+<td></td>
+<td>錶鏈接，MongoDB不支持</td>
+</tr>
+<tr>
+<td>primary key</td>
+<td>primary key</td>
+<td>主鍵，MongoDB自動將<code>_id</code>字段設置為主鍵</td>
+</tr>
+</tbody>
+</table>
+<h2 id="數據庫"><a class="markdownIt-Anchor" href="#數據庫"></a> 數據庫</h2>
+<ul>
+<li>一個MongoDB中可以建立多個數據庫</li>
+<li>MongoDB的單個實例可以容納多個獨立的數據庫，每一個有自己的集合和權限，不同的數據庫也放置在不同的文件中</li>
+<li>數據庫是通過名字來標識，數據庫名可以是滿足以下條件的任意UTF-8字符串
+<ul>
+<li>不能是空字符串&quot;&quot;</li>
+<li>不得含有<code>空格</code>、<code>.(點)</code>、<code>$</code>、<code>\</code>、<code>/</code>、<code>\0(空字符)</code></li>
+<li>全部小寫</li>
+<li>最多64字節</li>
+</ul>
+</li>
+<li>有一些數據庫名是保留的，可以直接訪問這些特殊作用的數據庫
+<ul>
+<li>admin：從權限的角度來看，這是root數據。要是將一個用戶添加到這個數據庫，這個用戶將自動繼承所以數據庫的權限</li>
+<li>local：這個數據永遠不會被複製，可以用來儲存限於本地單台服務器的任意集合</li>
+<li>config：當Mongo用於分片設置時，config數據庫在內部使用，用於保存分片的相關</li>
+</ul>
+</li>
+</ul>
+<h2 id="文檔"><a class="markdownIt-Anchor" href="#文檔"></a> 文檔</h2>
+<h3 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h3>
+<ul>
+<li>文檔是MongoDB最核心的概念，是其核心單元</li>
+<li>多個鍵及其關聯的值有序的放置在一起就是文檔。MongoDB使用BSON來儲存數據</li>
+<li>BSON可以理解為在JSON基礎上添加了一些json沒有的數據類型</li>
+</ul>
+<h3 id="注意"><a class="markdownIt-Anchor" href="#注意"></a> 注意</h3>
+<ul>
+<li>文檔中的鍵值對是有序的</li>
+<li>文檔中的值不僅可以是雙引號內的字符串，還可以是其他幾種類型的數據（甚至可以是整個嵌入的文檔）</li>
+<li>MongoDB區分類型和大小寫</li>
+<li>MongoDB的文檔不能有重複的鍵</li>
+<li>文檔的鍵是字符串</li>
+</ul>
+<h3 id="文檔命名規範"><a class="markdownIt-Anchor" href="#文檔命名規範"></a> 文檔命名規範</h3>
+<ul>
+<li>鍵不能含有<code>\0(空字符)</code>。這個字符用來表示鍵的結尾</li>
+<li>和$有特別的意義，只有在特定環境下才能使用</li>
+<li>以下劃線<code>_</code>開頭的鍵是保留的</li>
+</ul>
+<h3 id="集合"><a class="markdownIt-Anchor" href="#集合"></a> 集合</h3>
+<ul>
+<li>集合是一組文檔的組合。</li>
+<li>在MongoDB中，集合是無模式的，也就是說集合中存儲的文檔結構可以是不同的。比如下面兩個文檔可以同時存在一個集合中
+<ul>
+<li><code>&#123;&quot;name&quot;:&quot;Jerry&quot;&#125;</code></li>
+<li><code>&#123;&quot;Name&quot;:&quot;Jerry&quot;,&quot;gender&quot;:&quot;male&quot;&#125;</code></li>
+</ul>
+</li>
+<li>當一個文檔插入時，集合就會被創建</li>
+<li>合法的集合名字
+<ul>
+<li>不能以<code>system.</code>開頭</li>
+<li>不能是空字符串&quot;&quot;</li>
+<li>不能含有<code>\0(空字符)</code>。這個字符用來表示集合名的結尾</li>
+</ul>
+</li>
+</ul>
+<h3 id="mongodb的數據類型"><a class="markdownIt-Anchor" href="#mongodb的數據類型"></a> MongoDB的數據類型</h3>
+<table>
+<thead>
+<tr>
+<th>數據類型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Object ID</td>
+<td>Documents 自生成的 _id</td>
+</tr>
+<tr>
+<td>String</td>
+<td>字符串，必須是utf-8</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>布爾值，true 或者false (這裡有坑哦~在我們大Python中 True False 首字母大寫)</td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>整數 (Int32 Int64 你們就知道有個Int就行了,一般我們用Int32)</td>
+</tr>
+<tr>
+<td>Double</td>
+<td>浮點數 (沒有float類型,所有小數都是Double)</td>
+</tr>
+<tr>
+<td>Arrays</td>
+<td>數組或者列表，多個值存儲到一個鍵 (list哦,大Python中的List哦)</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>如果你學過Python的話,那麼這個概念特別好理解,就是Python中的字典,這個數據類型就是字典</td>
+</tr>
+<tr>
+<td>Null</td>
+<td>空數據類型 , 一個特殊的概念,None Null</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>時間戳</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>存儲當前日期或時間unix時間格式 (我們一般不用這個Date類型,時間戳可以秒殺一切時間類型)</td>
+</tr>
+</tbody>
+</table>
+<h1 id="使用mongodb"><a class="markdownIt-Anchor" href="#使用mongodb"></a> 使用MongoDB</h1>
+<ol>
+<li>在目錄下創建<code>data目錄</code>，且在<code>data目錄</code>下創建<code>db目錄</code>和<code>log目錄</code><br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-09-02_15-40-29.png" alt="" /></li>
+<li>打開命令行，進入MongoDB安裝地址的bin目錄下<br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-09-02_15-48-31.png" alt="" /></li>
+<li>輸入指令<code>mongod.exe --dbpath=上面創建的db目錄路徑</code>（不要關掉這個cmd窗口！）<br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-09-02_15-49-40.png" alt="" /></li>
+<li>再打開另一個命令行，進入MongoDB安裝地址的bin目錄下<br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-09-02_15-48-31.png" alt="" /></li>
+<li>連接MongoDB（出現<code>&lt;</code>代表連接成功）<br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-09-02_15-51-25.png" alt="" /></li>
+<li>啟動後可以用可視化工具管理MongoDB：MongoDBChef<br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-09-02_17-18-04.png" alt="" /></li>
+</ol>
+<h1 id="mongodb基本操作"><a class="markdownIt-Anchor" href="#mongodb基本操作"></a> MongoDB基本操作</h1>
+<h2 id="數據庫操作"><a class="markdownIt-Anchor" href="#數據庫操作"></a> 數據庫操作</h2>
+<h3 id="創建數據庫"><a class="markdownIt-Anchor" href="#創建數據庫"></a> 創建數據庫</h3>
+<ul>
+<li>語法：<code>use 數據庫名</code></li>
+<li>注意：
+<ul>
+<li>如果數據庫不存在則創建數據庫，否則則切換到指定數據庫</li>
+<li>如果剛剛創建的數據庫不在列表內，如果要顯示它，我們需要向剛剛創建的數據庫內插入一些數據（<code>db.student.insert(&#123;name:&quot;Jerry&quot;, age:18, gender: 1, city:&quot;HK&quot;, isDelete:0&#125;)</code>）</li>
+</ul>
+</li>
+<li>例子：<code>use mydb</code></li>
+</ul>
+<h3 id="刪除數據庫"><a class="markdownIt-Anchor" href="#刪除數據庫"></a> 刪除數據庫</h3>
+<ul>
+<li><code>db.dropDatabase()</code></li>
+<li>前提：使用當前數據庫（<code>use 數據庫名</code>）</li>
+</ul>
+<h3 id="查看所有數據庫"><a class="markdownIt-Anchor" href="#查看所有數據庫"></a> 查看所有數據庫</h3>
+<ul>
+<li><code>show dbs</code></li>
+</ul>
+<h3 id="查看當前正在使用的數據庫"><a class="markdownIt-Anchor" href="#查看當前正在使用的數據庫"></a> 查看當前正在使用的數據庫</h3>
+<ul>
+<li><code>db</code></li>
+<li><code>db.getName()</code></li>
+</ul>
+<h3 id="斷開連接"><a class="markdownIt-Anchor" href="#斷開連接"></a> 斷開連接</h3>
+<ul>
+<li><code>exit</code></li>
+</ul>
+<h3 id="查看命令api"><a class="markdownIt-Anchor" href="#查看命令api"></a> 查看命令api</h3>
+<ul>
+<li><code>help</code></li>
+</ul>
+<h2 id="集合操作"><a class="markdownIt-Anchor" href="#集合操作"></a> 集合操作</h2>
+<h3 id="查看當前數據庫下有哪些集合"><a class="markdownIt-Anchor" href="#查看當前數據庫下有哪些集合"></a> 查看當前數據庫下有哪些集合</h3>
+<ul>
+<li>指令：<code>show collections</code></li>
+</ul>
+<h3 id="創建集合"><a class="markdownIt-Anchor" href="#創建集合"></a> 創建集合</h3>
+<ol>
+<li>語法：<code>db.createCollection(&quot;集合名&quot;)</code>
+<ul>
+<li>示例：<code>db.createCollection(&quot;class&quot;)</code></li>
+</ul>
+</li>
+<li>語法：<code>db.集合名.insert(文檔)</code>
+<ul>
+<li>示例：<code>db.student.insert(&#123;name:&quot;Jerry&quot;, age:18, gender: 1, city:&quot;HK&quot;, isDelete:0&#125;)</code><br />
+區別：前者創建的是一個空的集合，後者創建一個空的集合並添加一個文檔</li>
+</ul>
+</li>
+</ol>
+<h3 id="刪除當前數據庫中的集合"><a class="markdownIt-Anchor" href="#刪除當前數據庫中的集合"></a> 刪除當前數據庫中的集合</h3>
+<ul>
+<li>語法：<code>db.集合名.drop()</code></li>
+<li>示例：<code>db.class.drop()</code></li>
+</ul>
+<h2 id="文檔操作"><a class="markdownIt-Anchor" href="#文檔操作"></a> 文檔操作</h2>
+<h3 id="插入文檔"><a class="markdownIt-Anchor" href="#插入文檔"></a> 插入文檔</h3>
+<ol>
+<li>
+<p>使用insert()方法插入文檔</p>
+<ul>
+<li>插入一個語法：<code>db.集合名.insert(文檔)</code></li>
+<li>示例：<code>db.student.insert(&#123;name:&quot;Irene&quot;, age:17, gender: 0, city:&quot;Paris&quot;, isDelete:0&#125;)</code></li>
+<li>插入多個語法：<code>db.student.insert([&#123;文檔1, 文檔2, ..., 文檔n&#125;])</code></li>
+<li>示例：<code>db.student.insert([&#123;name:&quot;Irene&quot;, age:17, gender: 0, city:&quot;Paris&quot;, isDelete:0&#125;,&#123;name:&quot;Prinz Eugen&quot;, age:17, gender: 0, city:&quot;Berlin&quot;, isDelete:0&#125;])</code></li>
+</ul>
+</li>
+<li>
+<p>使用save()方法插入文檔</p>
+<ul>
+<li>語法：<code>db.集合名.save(文檔)</code></li>
+<li>說明：如果不指定<code>_id</code>字段，<code>save()</code>方法類似於<code>insert()</code>。如果指定<code>_id</code>字段，則會更新<code>_id</code>字段的數據。</li>
+<li>示例1：<code>db.student.save(&#123;name:&quot;Willams&quot;, age:17, gender: 1, city:&quot;HK&quot;, isDelete:0&#125;)</code></li>
+<li>示例2（指定_id字段）：<code>db.student.save(&#123;_id:ObjectId(&quot;5f4f725c69755bc92802e4e8&quot;),name:&quot;Willams&quot;, age:23, gender: 1, city:&quot;HK&quot;, isDelete:0&#125;)</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="文檔更新"><a class="markdownIt-Anchor" href="#文檔更新"></a> 文檔更新</h3>
+<ol>
+<li><code>update()</code>方法用途更新已存在的文檔
+<ul>
+<li>語法：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">db.集合名.update(</span><br><span class="line">    query,</span><br><span class="line">    update,</span><br><span class="line">    &#123;</span><br><span class="line">        upset:&lt;boolean&gt;</span><br><span class="line">        multi:&lt;boolen&gt;,</span><br><span class="line">        writeConcern:&lt;document&gt;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li>參數說明：
+<ul>
+<li><code>query</code>：<code>update</code>的查詢條件,類似於<code>SQL</code>裡<code>update</code>語句內的<code>where</code>後面的內容</li>
+<li><code>update</code>：<code>update</code>的對象和一些更新的操作符（<code>$set</code>,<code>$inc</code>）等，<code>$set</code>直接更新，<code>$inc</code>在原有的基礎上累加後更新</li>
+<li><code>upset</code>：可選，如果不存在<code>update</code>記錄，是否當新數據插入，<code>true</code>為插入，<code>false</code>為不插入，默認為<code>false</code></li>
+<li><code>multi</code>：可選，MongoDB默認是<code>false</code>，只更新找到的第一條記錄，如果這個參數為true，就按照條件查找出來的數據全部更新</li>
+<li><code>writeConcern</code>：可選，拋出異常的級別</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>例子：將Jerry的年齡更新為44</li>
+<li><code>db.student.update(&#123;name:&quot;Jerry&quot;&#125;,&#123;$set:&#123;age:44&#125;&#125;)</code>
+<ul>
+<li>Jerry age值為44</li>
+</ul>
+</li>
+<li>累加：<code>db.student.update(&#123;name:&quot;Jerry&quot;&#125;,&#123;$inc:&#123;age:44&#125;&#125;)</code>
+<ul>
+<li>Jerry age值為88（累加）</li>
+</ul>
+</li>
+<li>全改：<code>db.student.update(&#123;name:&quot;Jerry&quot;&#125;,&#123;$inc:&#123;age:44&#125;&#125;,&#123;multi:true&#125;)</code>
+<ul>
+<li>表內所有Jerry 的age都改為了44</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li><code>save()</code>方法通過傳入的文檔替換已有文檔</li>
+</ol>
+<ul>
+<li>
+<p>語法：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">db.集合名.save(</span><br><span class="line">    document,</span><br><span class="line">    &#123;</span><br><span class="line">        writeConcern:&lt;document&gt;</span><br><span class="line">    &#125;</span><br><span class="line"> )</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>參數：</p>
+<ul>
+<li><code>document</code>：文檔數據</li>
+<li><code>writeConcern</code>：可選，拋出異常的級別</li>
+</ul>
+</li>
+</ul>
+<h3 id="文檔刪除"><a class="markdownIt-Anchor" href="#文檔刪除"></a> 文檔刪除</h3>
+<ul>
+<li>
+<p>說明：在執行<code>remove()</code>函數前，先執行<code>find()</code>命令來判斷執行的條件是否存在是一個良好的習慣</p>
+</li>
+<li>
+<p>語法：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">db.集合名.remove(</span><br><span class="line">    query,</span><br><span class="line">    &#123;</span><br><span class="line">        justOne:&lt;boolean&gt;</span><br><span class="line">        writeConcern:&lt;document&gt;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>參數說明：</p>
+<ul>
+<li><code>query</code>：可選，刪除文檔的條件</li>
+<li><code>justOne</code>：可選，如果為<code>true</code>或<code>1</code>，則只刪除一個文檔</li>
+<li><code>writeConcern</code>：可選，拋出異常的級別</li>
+</ul>
+</li>
+<li>
+<p>全部删除示例：<code>db.student.remove(&#123;name:&quot;Willams&quot;&#125;)</code></p>
+</li>
+<li>
+<p>只删除一个示例：<code>db.student.remove(&#123;name:&quot;Willams&quot;&#125;,&#123;justOne:1&#125;)</code></p>
+</li>
+</ul>
+<h3 id="文件查詢"><a class="markdownIt-Anchor" href="#文件查詢"></a> 文件查詢</h3>
+<ol>
+<li><code>find()</code>方法
+<ul>
+<li>查看集合下所有的文檔（數據）
+<ul>
+<li>語法：<code>db.集合名.find()</code></li>
+<li>示例：<code>db.student.find()</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>find()</code>方法查詢指定列
+<ul>
+<li>語法：</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">db.集合名.find(</span><br><span class="line">    query,</span><br><span class="line">    &#123;</span><br><span class="line">        &lt;key&gt;:1,</span><br><span class="line">        &lt;key&gt;:1</span><br><span class="line">    &#125;</span><br><span class="line">) </span><br></pre></td></tr></table></figure>
+<ul>
+<li>參數說明：
+<ul>
+<li><code>query</code>：查詢條件</li>
+<li><code>key</code>：要顯示的字段，1表示顯示</li>
+</ul>
+</li>
+<li>示例（查看所有gender為1的文檔 name與age 的數據）：<code>db.student.find(&#123;gender:1&#125;,&#123;name:1,age:1&#125;)</code></li>
+<li>示例（查看所有的文檔 name與age 的數據）：<code>db.student.find(&#123;&#125;,&#123;name:1,age:1&#125;)</code></li>
+</ul>
+<ol start="3">
+<li><code>pretty()</code>方法以格式化的方式來顯示文檔
+<ul>
+<li>示例：<code>db.student.find().pretty()</code><br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-09-03_11-01-54.png" alt="" /></li>
+</ul>
+</li>
+<li><code>findOne()</code>方法查詢匹配結果的第一條數據
+<ul>
+<li>示例：<code>db.student.findOne(&#123;gender:0&#125;)</code><br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-09-03_11-03-26.png" alt="" /></li>
+</ul>
+</li>
+</ol>
+<h4 id="查詢操作符"><a class="markdownIt-Anchor" href="#查詢操作符"></a> 查詢操作符</h4>
+<ul>
+<li>作用：條件操作符用於比較兩個表達式並從MongoDB集合中獲取數據
+<ol>
+<li>大於操作符：<code>$gt</code>
+<ul>
+<li>語法：<code>db.集合名.find(&#123;&lt;key&gt;:&#123;$gt:&lt;value&gt;&#125;&#125;)</code></li>
+<li>示例（尋找age大於20的）：<code>db.student.find(&#123;age:&#123;$gt:20&#125;&#125;)</code></li>
+</ul>
+</li>
+<li>大於等於操作符：<code>$gte</code>
+<ul>
+<li>語法：<code>db.集合名.find(&#123;&lt;key&gt;:&#123;$gte:&lt;value&gt;&#125;&#125;)</code></li>
+</ul>
+</li>
+<li>小於操作符：<code>$lt</code>
+<ul>
+<li>語法：<code>db.集合名.find(&#123;&lt;key&gt;:&#123;$lt:&lt;value&gt;&#125;&#125;)</code></li>
+</ul>
+</li>
+<li>小於等於操作符：<code>$lte</code>
+<ul>
+<li>語法：<code>db.集合名.find(&#123;&lt;key&gt;:&#123;$lte:&lt;value&gt;&#125;&#125;)</code></li>
+</ul>
+</li>
+<li>大於等於 和 小於等於 ：<code>$gte</code> 和 <code>$lte</code>
+<ul>
+<li>語法：<code>db.集合名.find(&#123;&lt;key&gt;:&#123;$gte:&lt;value&gt;,$lte:&lt;value&gt;&#125;&#125;)</code></li>
+</ul>
+</li>
+<li>等於：<code>:</code>
+<ul>
+<li>語法：<code>db.集合名.find(&#123;&lt;key&gt;:&lt;value&gt;&#125;)</code></li>
+</ul>
+</li>
+<li>使用_id進行查詢：
+<ul>
+<li>語法：<code>db.集合名.find(&#123;&quot;_id&quot;:ObjectId(&quot;_id值&quot;)&#125;)</code></li>
+<li>示例：<code>db.student.find(&#123;&quot;_id&quot; : ObjectId(&quot;5f4f6d5769755bc92802e4e7&quot;)&#125;)</code></li>
+</ul>
+</li>
+<li>查詢某個結果集的數據條數：
+<ul>
+<li>語法：<code>db.集合名.find().count()</code></li>
+<li>示例：<code>db.student.find().count()</code></li>
+</ul>
+</li>
+<li>查詢某個字段的值中是否包含另一個值：
+<ul>
+<li>語法：<code>db.student.find(&#123;&lt;key&gt;:&lt;value&gt;&#125;)</code></li>
+<li>示例（查詢包含<code>err</code>的字段）：<code>db.student.find(&#123;name:/err/&#125;)</code></li>
+</ul>
+</li>
+<li>查詢某個字段的值是否以另一個值開頭：
+<ul>
+<li>示例（查詢以Je開頭的字段）：<code>db.student.find(&#123;name:/^Je/&#125;)</code></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="條件查詢-and-和-or"><a class="markdownIt-Anchor" href="#條件查詢-and-和-or"></a> 條件查詢 and 和 or</h3>
+<ol>
+<li>
+<p>AND條件</p>
+<ul>
+<li>語法：<code>db.集合名.find(&#123;條件1, 條件2, ..., 條件n&#125;)</code></li>
+<li>示例（所有gender為0且age大於16的字段）：
+<ul>
+<li><code>db.student.find(&#123;gender:0,age:&#123;$gt:16&#125;&#125;)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>OR條件</p>
+<ul>
+<li>
+<p>語法：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">db.集合名.find(</span><br><span class="line">    &#123;</span><br><span class="line">        $or:[&#123;條件1&#125;, &#123;條件2&#125;, ..., &#123;條件n&#125;]</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>示例（查詢所有age為17或者age大於等於18的字段）：</p>
+<ul>
+<li><code>db.student.find(&#123;$or:[&#123;age:17&#125;,&#123;age:&#123;$gte:18&#125;&#125;]&#125;)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>AND 和 OR 聯合使用</p>
+<ul>
+<li>語法：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">db.集合名.find(</span><br><span class="line">    &#123;</span><br><span class="line">        條件1,</span><br><span class="line">        條件2,</span><br><span class="line">        $or:[&#123;條件1&#125;, &#123;條件2&#125;]</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="limitskip"><a class="markdownIt-Anchor" href="#limitskip"></a> limit/skip</h3>
+<ol>
+<li><code>limit()</code>：讀取指定數量的數據記錄
+<ul>
+<li>示例：<code>db.student.find().limit(2)</code></li>
+</ul>
+</li>
+<li><code>skip()</code>：跳過指定數量的數據
+<ul>
+<li>示例：<code>db.student.find().skip(2)</code></li>
+</ul>
+</li>
+<li><code>limit()</code>與<code>skip()</code>聯合使用
+<ul>
+<li>通常通過這種方式實現分頁功能</li>
+<li>示例：<code>db.student.find().skip(3).limit(3)</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="排序"><a class="markdownIt-Anchor" href="#排序"></a> 排序</h3>
+<ul>
+<li>語法：<code>db.集合名.find().sort(&#123;&lt;key&gt;:1|-1&#125;)</code></li>
+<li>示例（升序）：db.student.find().sort({age:1})</li>
+<li>示例（降序）：db.student.find().sort({age:-1})</li>
+<li>注意：<code>1</code>表示升序，<code>-1</code>表示降序</li>
+</ul>
+<h1 id="python操作mongodb"><a class="markdownIt-Anchor" href="#python操作mongodb"></a> Python操作MongoDB</h1>
+<div class="note info flat"><p>安裝<code>pymongo</code>庫</p>
+</div>
+<h2 id="添加文檔"><a class="markdownIt-Anchor" href="#添加文檔"></a> 添加文檔</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接服務器</span></span><br><span class="line">conn = MongoClient(<span class="string">&quot;localhost&quot;</span>, <span class="number">27017</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接數據庫</span></span><br><span class="line">db = conn.mydb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 獲取集合</span></span><br><span class="line">collection = db.student</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加單個</span></span><br><span class="line">collection.insert(&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Irene&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">17</span>, <span class="string">&quot;gender&quot;</span>: <span class="number">0</span>, <span class="string">&quot;city&quot;</span>: <span class="string">&quot;Paris&quot;</span>, <span class="string">&quot;isDelete&quot;</span>: <span class="number">0</span>&#125;)</span><br><span class="line"><span class="comment"># 添加多個文檔（文檔要用[]框起來）</span></span><br><span class="line">collection.insert([&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Prinz Eugen&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">17</span>, <span class="string">&quot;gender&quot;</span>: <span class="number">0</span>, <span class="string">&quot;city&quot;</span>: <span class="string">&quot;Germany&quot;</span>, <span class="string">&quot;isDelete&quot;</span>: <span class="number">0</span>&#125;, &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Irene&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">17</span>, <span class="string">&quot;gender&quot;</span>: <span class="number">0</span>, <span class="string">&quot;city&quot;</span>: <span class="string">&quot;Paris&quot;</span>, <span class="string">&quot;isDelete&quot;</span>: <span class="number">0</span>&#125;])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 斷開</span></span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<h2 id="查詢文檔"><a class="markdownIt-Anchor" href="#查詢文檔"></a> 查詢文檔</h2>
+<h3 id="查詢部分文檔"><a class="markdownIt-Anchor" href="#查詢部分文檔"></a> 查詢部分文檔</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接服務器</span></span><br><span class="line">conn = MongoClient(<span class="string">&quot;localhost&quot;</span>, <span class="number">27017</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接數據庫</span></span><br><span class="line">db = conn.mydb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 獲取集合</span></span><br><span class="line">collection = db.student</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查詢部分文檔</span></span><br><span class="line">res = collection.find(&#123;<span class="string">&quot;age&quot;</span>: &#123;<span class="string">&quot;$gt&quot;</span>:<span class="number">16</span>&#125;&#125;)</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> res:</span><br><span class="line">    <span class="built_in">print</span>(row)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 斷開</span></span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<h3 id="查詢所有文檔"><a class="markdownIt-Anchor" href="#查詢所有文檔"></a> 查詢所有文檔</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接服務器</span></span><br><span class="line">conn = MongoClient(<span class="string">&quot;localhost&quot;</span>, <span class="number">27017</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接數據庫</span></span><br><span class="line">db = conn.mydb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 獲取集合</span></span><br><span class="line">collection = db.student</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查詢所有</span></span><br><span class="line">res = collection.find()</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> res:</span><br><span class="line">    <span class="built_in">print</span>(row)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 斷開</span></span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<h3 id="統計查詢"><a class="markdownIt-Anchor" href="#統計查詢"></a> 統計查詢</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接服務器</span></span><br><span class="line">conn = MongoClient(<span class="string">&quot;localhost&quot;</span>, <span class="number">27017</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接數據庫</span></span><br><span class="line">db = conn.mydb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 獲取集合</span></span><br><span class="line">collection = db.student</span><br><span class="line"></span><br><span class="line"><span class="comment"># 統計查詢</span></span><br><span class="line">res = collection.find(&#123;<span class="string">&quot;age&quot;</span>: &#123;<span class="string">&quot;$gt&quot;</span>:<span class="number">16</span>&#125;&#125;).count()</span><br><span class="line"><span class="built_in">print</span>(res)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 斷開</span></span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<h3 id="根據id查詢"><a class="markdownIt-Anchor" href="#根據id查詢"></a> 根據id查詢</h3>
+<div class="note info flat"><p>引入<code>from bson.objectid import ObjectId</code>用於id查詢</p>
+</div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line"><span class="keyword">from</span> bson.objectid <span class="keyword">import</span> ObjectId</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接服務器</span></span><br><span class="line">conn = MongoClient(<span class="string">&quot;localhost&quot;</span>, <span class="number">27017</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接數據庫</span></span><br><span class="line">db = conn.mydb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 獲取集合</span></span><br><span class="line">collection = db.student</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根據id查詢</span></span><br><span class="line">res = collection.find(&#123;<span class="string">&quot;_id&quot;</span>:ObjectId(<span class="string">&quot;5f4f6d5769755bc92802e4e7&quot;</span>)&#125;)</span><br><span class="line"><span class="built_in">print</span>(res[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 斷開</span></span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<h3 id="排序-2"><a class="markdownIt-Anchor" href="#排序-2"></a> 排序</h3>
+<ul>
+<li>升序</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接服務器</span></span><br><span class="line">conn = MongoClient(<span class="string">&quot;localhost&quot;</span>, <span class="number">27017</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接數據庫</span></span><br><span class="line">db = conn.mydb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 獲取集合</span></span><br><span class="line">collection = db.student</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查詢所有，升序排列</span></span><br><span class="line">res = collection.find().sort(<span class="string">&quot;age&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> res:</span><br><span class="line">    <span class="built_in">print</span>(row)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 斷開</span></span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>降序</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymongo</span><br><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接服務器</span></span><br><span class="line">conn = MongoClient(<span class="string">&quot;localhost&quot;</span>, <span class="number">27017</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接數據庫</span></span><br><span class="line">db = conn.mydb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 獲取集合</span></span><br><span class="line">collection = db.student</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查詢所有，降序排列</span></span><br><span class="line">res = collection.find().sort(<span class="string">&quot;age&quot;</span>, pymongo.DESCENDING)</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> res:</span><br><span class="line">    <span class="built_in">print</span>(row)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 斷開</span></span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<h3 id="分頁查詢"><a class="markdownIt-Anchor" href="#分頁查詢"></a> 分頁查詢</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接服務器</span></span><br><span class="line">conn = MongoClient(<span class="string">&quot;localhost&quot;</span>, <span class="number">27017</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接數據庫</span></span><br><span class="line">db = conn.mydb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 獲取集合</span></span><br><span class="line">collection = db.student</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分頁查詢</span></span><br><span class="line">res = collection.find().skip(<span class="number">3</span>).limit(<span class="number">3</span>)</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> res:</span><br><span class="line">    <span class="built_in">print</span>(row)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 斷開</span></span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<h2 id="更新數據"><a class="markdownIt-Anchor" href="#更新數據"></a> 更新數據</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接服務器</span></span><br><span class="line">conn = MongoClient(<span class="string">&quot;localhost&quot;</span>, <span class="number">27017</span>)</span><br><span class="line"><span class="comment"># 連接數據庫</span></span><br><span class="line">db = conn.mydb</span><br><span class="line"><span class="comment"># 獲取集合</span></span><br><span class="line">collection = db.student</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新</span></span><br><span class="line">collection.update(&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Jerry&quot;</span>&#125;,&#123;<span class="string">&quot;$set&quot;</span>:&#123;<span class="string">&quot;age&quot;</span>:<span class="number">25</span>&#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 斷開</span></span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<h2 id="刪除數據"><a class="markdownIt-Anchor" href="#刪除數據"></a> 刪除數據</h2>
+<h3 id="單個刪除"><a class="markdownIt-Anchor" href="#單個刪除"></a> 單個刪除</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接服務器</span></span><br><span class="line">conn = MongoClient(<span class="string">&quot;localhost&quot;</span>, <span class="number">27017</span>)</span><br><span class="line"><span class="comment"># 連接數據庫</span></span><br><span class="line">db = conn.mydb</span><br><span class="line"><span class="comment"># 獲取集合</span></span><br><span class="line">collection = db.student</span><br><span class="line"></span><br><span class="line"><span class="comment"># 刪除</span></span><br><span class="line">collection.remove(&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Jerry&quot;</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 斷開</span></span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<h3 id="全部刪除"><a class="markdownIt-Anchor" href="#全部刪除"></a> 全部刪除</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line"></span><br><span class="line"><span class="comment"># 連接服務器</span></span><br><span class="line">conn = MongoClient(<span class="string">&quot;localhost&quot;</span>, <span class="number">27017</span>)</span><br><span class="line"><span class="comment"># 連接數據庫</span></span><br><span class="line">db = conn.mydb</span><br><span class="line"><span class="comment"># 獲取集合</span></span><br><span class="line">collection = db.student</span><br><span class="line"></span><br><span class="line"><span class="comment"># 刪除</span></span><br><span class="line">collection.remove()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 斷開</span></span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">D.VaGary</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章連結: </span><span class="post-copyright-info"><a href="https://blog.dvagary.com/2020/09/01/python48/">https://blog.dvagary.com/2020/09/01/python48/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版權聲明: </span><span class="post-copyright-info">本部落格所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 許可協議。轉載請註明來自 <a href="https://blog.dvagary.com" target="_blank">D.VaGary</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a><a class="post-meta__tags" href="/tags/MongoDB/">MongoDB</a><a class="post-meta__tags" href="/tags/%E6%95%B8%E6%93%9A%E5%BA%AB/">數據庫</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/JWHK852/image/master/mongodbpy.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/09/03/python49/"><img class="prev-cover" src="https://raw.githubusercontent.com/JWHK852/image/master/tiamg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Python49-Redis</div></div></a></div><div class="next-post pull-right"><a href="/2020/08/30/python47/"><img class="next-cover" src="https://raw.githubusercontent.com/JWHK852/image/master/mysqlpy.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python47-Mysql</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相關推薦</span></div><div class="relatedPosts-list"><div><a href="/2020/08/30/python47/" title="Python47-Mysql"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/mysqlpy.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-30</div><div class="title">Python47-Mysql</div></div></a></div><div><a href="/2020/09/03/python49/" title="Python49-Redis"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/tiamg.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-03</div><div class="title">Python49-Redis</div></div></a></div><div><a href="/2022/05/06/ai1/" title="AI1-簡介"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-06</div><div class="title">AI1-簡介</div></div></a></div><div><a href="/2022/05/07/ai2/" title="AI2-基础庫"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-07</div><div class="title">AI2-基础庫</div></div></a></div><div><a href="/2022/05/13/ai3/" title="AI3-機器學習-線性回歸"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-13</div><div class="title">AI3-機器學習-線性回歸</div></div></a></div><div><a href="/2022/05/25/ai4/" title="AI4-機器學習-邏輯回歸"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-25</div><div class="title">AI4-機器學習-邏輯回歸</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 評論</span></div><div id="comment-switch"><span class="first-comment">Valine</span><span class="switch-btn"></span><span class="second-comment">Livere</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="lv-container" data-id="city" data-uid="MTAyMC81MDA0NS8yNjUzNg=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">D.VaGary</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">102</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">39</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">5</div></a></div></div><a class="button--animated" id="card-info-btn" href="tencent://message/?uin=1761087701&amp;Site=&amp;Menu=yes"><i class="fab fa-qq"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://open.spotify.com/playlist/2JjPHBAleYRxVAqiqBRCea?si=XZ3lRmLgSDaMuIzHtIpfrA" target="_blank" title="Spotify"><i class="fab fa-spotify"></i></a><a class="social-icon" href="https://steamcommunity.com/id/dvagary" target="_blank" title="Steam"><i class="fab fa-steam"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Pixiv日榜&nbsp;&nbsp;<i class="fas fa-images"></i><br><iframe src="https://cloud.mokeyjay.com/pixiv" frameborder="0"  style="width:240px; height:380px;"></iframe></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目錄</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#nosql%E7%B0%A1%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text"> NoSQL簡介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%84%AA%E9%BB%9E"><span class="toc-number">1.1.</span> <span class="toc-text"> 優點</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%BA%E9%BB%9E"><span class="toc-number">1.2.</span> <span class="toc-text"> 缺點</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%A1%9E"><span class="toc-number">1.3.</span> <span class="toc-text"> 分類</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E5%AD%98%E5%84%B2"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 列存儲</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%AA%94%E5%AD%98%E5%84%B2"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 文檔存儲</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#key-value%E5%AD%98%E5%84%B2"><span class="toc-number">1.3.3.</span> <span class="toc-text"> key-value存儲</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%96%E5%AD%98%E5%84%B2"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 圖存儲</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8D%E8%B1%A1%E5%AD%98%E5%84%B2"><span class="toc-number">1.3.5.</span> <span class="toc-text"> 對象存儲</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xml%E6%95%B8%E6%93%9A%E5%BA%AB"><span class="toc-number">1.3.6.</span> <span class="toc-text"> xml數據庫</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mongodb"><span class="toc-number">2.</span> <span class="toc-text"> MongoDB</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%89%B9%E9%BB%9E"><span class="toc-number">2.1.</span> <span class="toc-text"> 主要特點</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql%E8%88%87mongodb%E6%A6%82%E5%BF%B5"><span class="toc-number">2.2.</span> <span class="toc-text"> SQL與MongoDB概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E5%BA%AB"><span class="toc-number">2.3.</span> <span class="toc-text"> 數據庫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%AA%94"><span class="toc-number">2.4.</span> <span class="toc-text"> 文檔</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">2.4.1.</span> <span class="toc-text"> 概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-number">2.4.2.</span> <span class="toc-text"> 注意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%AA%94%E5%91%BD%E5%90%8D%E8%A6%8F%E7%AF%84"><span class="toc-number">2.4.3.</span> <span class="toc-text"> 文檔命名規範</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E5%90%88"><span class="toc-number">2.4.4.</span> <span class="toc-text"> 集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mongodb%E7%9A%84%E6%95%B8%E6%93%9A%E9%A1%9E%E5%9E%8B"><span class="toc-number">2.4.5.</span> <span class="toc-text"> MongoDB的數據類型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8mongodb"><span class="toc-number">3.</span> <span class="toc-text"> 使用MongoDB</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mongodb%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text"> MongoDB基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B8%E6%93%9A%E5%BA%AB%E6%93%8D%E4%BD%9C"><span class="toc-number">4.1.</span> <span class="toc-text"> 數據庫操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%B5%E5%BB%BA%E6%95%B8%E6%93%9A%E5%BA%AB"><span class="toc-number">4.1.1.</span> <span class="toc-text"> 創建數據庫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%AA%E9%99%A4%E6%95%B8%E6%93%9A%E5%BA%AB"><span class="toc-number">4.1.2.</span> <span class="toc-text"> 刪除數據庫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E6%95%B8%E6%93%9A%E5%BA%AB"><span class="toc-number">4.1.3.</span> <span class="toc-text"> 查看所有數據庫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%95%B6%E5%89%8D%E6%AD%A3%E5%9C%A8%E4%BD%BF%E7%94%A8%E7%9A%84%E6%95%B8%E6%93%9A%E5%BA%AB"><span class="toc-number">4.1.4.</span> <span class="toc-text"> 查看當前正在使用的數據庫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B7%E9%96%8B%E9%80%A3%E6%8E%A5"><span class="toc-number">4.1.5.</span> <span class="toc-text"> 斷開連接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4api"><span class="toc-number">4.1.6.</span> <span class="toc-text"> 查看命令api</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C"><span class="toc-number">4.2.</span> <span class="toc-text"> 集合操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%95%B6%E5%89%8D%E6%95%B8%E6%93%9A%E5%BA%AB%E4%B8%8B%E6%9C%89%E5%93%AA%E4%BA%9B%E9%9B%86%E5%90%88"><span class="toc-number">4.2.1.</span> <span class="toc-text"> 查看當前數據庫下有哪些集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%B5%E5%BB%BA%E9%9B%86%E5%90%88"><span class="toc-number">4.2.2.</span> <span class="toc-text"> 創建集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%AA%E9%99%A4%E7%95%B6%E5%89%8D%E6%95%B8%E6%93%9A%E5%BA%AB%E4%B8%AD%E7%9A%84%E9%9B%86%E5%90%88"><span class="toc-number">4.2.3.</span> <span class="toc-text"> 刪除當前數據庫中的集合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%AA%94%E6%93%8D%E4%BD%9C"><span class="toc-number">4.3.</span> <span class="toc-text"> 文檔操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%96%87%E6%AA%94"><span class="toc-number">4.3.1.</span> <span class="toc-text"> 插入文檔</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%AA%94%E6%9B%B4%E6%96%B0"><span class="toc-number">4.3.2.</span> <span class="toc-text"> 文檔更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%AA%94%E5%88%AA%E9%99%A4"><span class="toc-number">4.3.3.</span> <span class="toc-text"> 文檔刪除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%9F%A5%E8%A9%A2"><span class="toc-number">4.3.4.</span> <span class="toc-text"> 文件查詢</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">4.3.4.1.</span> <span class="toc-text"> 查詢操作符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A2%9D%E4%BB%B6%E6%9F%A5%E8%A9%A2-and-%E5%92%8C-or"><span class="toc-number">4.3.5.</span> <span class="toc-text"> 條件查詢 and 和 or</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#limitskip"><span class="toc-number">4.3.6.</span> <span class="toc-text"> limit&#x2F;skip</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F"><span class="toc-number">4.3.7.</span> <span class="toc-text"> 排序</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#python%E6%93%8D%E4%BD%9Cmongodb"><span class="toc-number">5.</span> <span class="toc-text"> Python操作MongoDB</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%96%87%E6%AA%94"><span class="toc-number">5.1.</span> <span class="toc-text"> 添加文檔</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E6%96%87%E6%AA%94"><span class="toc-number">5.2.</span> <span class="toc-text"> 查詢文檔</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E9%83%A8%E5%88%86%E6%96%87%E6%AA%94"><span class="toc-number">5.2.1.</span> <span class="toc-text"> 查詢部分文檔</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E6%89%80%E6%9C%89%E6%96%87%E6%AA%94"><span class="toc-number">5.2.2.</span> <span class="toc-text"> 查詢所有文檔</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B5%B1%E8%A8%88%E6%9F%A5%E8%A9%A2"><span class="toc-number">5.2.3.</span> <span class="toc-text"> 統計查詢</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%93%9Aid%E6%9F%A5%E8%A9%A2"><span class="toc-number">5.2.4.</span> <span class="toc-text"> 根據id查詢</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F-2"><span class="toc-number">5.2.5.</span> <span class="toc-text"> 排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E9%A0%81%E6%9F%A5%E8%A9%A2"><span class="toc-number">5.2.6.</span> <span class="toc-text"> 分頁查詢</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E6%95%B8%E6%93%9A"><span class="toc-number">5.3.</span> <span class="toc-text"> 更新數據</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%AA%E9%99%A4%E6%95%B8%E6%93%9A"><span class="toc-number">5.4.</span> <span class="toc-text"> 刪除數據</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%96%AE%E5%80%8B%E5%88%AA%E9%99%A4"><span class="toc-number">5.4.1.</span> <span class="toc-text"> 單個刪除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E9%83%A8%E5%88%AA%E9%99%A4"><span class="toc-number">5.4.2.</span> <span class="toc-text"> 全部刪除</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/06/23/django5/" title="Django5-部署"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django5-部署"/></a><div class="content"><a class="title" href="/2023/06/23/django5/" title="Django5-部署">Django5-部署</a><time datetime="2023-06-22T20:31:26.000Z" title="發表於 2023-06-23 04:31:26">2023-06-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/01/cpp_pointer/" title="C++-Pointer"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003323.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++-Pointer"/></a><div class="content"><a class="title" href="/2023/05/01/cpp_pointer/" title="C++-Pointer">C++-Pointer</a><time datetime="2023-04-30T20:31:26.000Z" title="發表於 2023-05-01 04:31:26">2023-05-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/21/django4/" title="Django4-完整開發案例"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django4-完整開發案例"/></a><div class="content"><a class="title" href="/2023/04/21/django4/" title="Django4-完整開發案例">Django4-完整開發案例</a><time datetime="2023-04-20T20:31:26.000Z" title="發表於 2023-04-21 04:31:26">2023-04-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/29/cpp1/" title="C++"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003323.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++"/></a><div class="content"><a class="title" href="/2023/03/29/cpp1/" title="C++">C++</a><time datetime="2023-03-28T20:31:26.000Z" title="發表於 2023-03-29 04:31:26">2023-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/23/django2/" title="Django2-模型"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django2-模型"/></a><div class="content"><a class="title" href="/2022/12/23/django2/" title="Django2-模型">Django2-模型</a><time datetime="2022-12-22T20:31:26.000Z" title="發表於 2022-12-23 04:31:26">2022-12-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://raw.githubusercontent.com/JWHK852/image/master/mongodbpy.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By D.VaGary</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主題 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="閱讀模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="簡繁轉換">繁</button><button id="darkmode" type="button" title="淺色和深色模式轉換"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="單欄和雙欄切換"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="設定"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目錄"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直達評論"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到頂部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜尋</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  資料庫載入中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜尋文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : ''
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'KRwnYKvfhHUtxrxXi6EMctLn-MdYXbMMI',
+      appKey: '6Be1unBSqa33Q3Qvr57Xw9I0',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: {"tv_doge":"6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png","tv_親親":"a8111ad55953ef5e3be3327ef94eb4a39d535d06.png","tv_偷笑":"bb690d4107620f1c15cff29509db529a73aee261.png","tv_再見":"180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png","tv_冷漠":"b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png","tv_發怒":"34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png","tv_發財":"34db290afd2963723c6eb3c4560667db7253a21a.png","tv_可愛":"9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png","tv_吐血":"09dd16a7aa59b77baa1155d47484409624470c77.png","tv_呆":"fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png","tv_嘔吐":"9f996894a39e282ccf5e66856af49483f81870f3.png","tv_困":"241ee304e44c0af029adceb294399391e4737ef2.png","tv_壞笑":"1f0b87f731a671079842116e0991c91c2c88645a.png","tv_大佬":"093c1e2c490161aca397afc45573c877cdead616.png","tv_大哭":"23269aeb35f99daee28dda129676f6e9ea87934f.png","tv_委屈":"d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png","tv_害羞":"a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png","tv_尷尬":"7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png","tv_微笑":"70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png","tv_思考":"90cf159733e558137ed20aa04d09964436f618a1.png","tv_驚嚇":"0d15c7e2ee58e935adc6a7193ee042388adc22af.png"},
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function loadLivere () {
+  if (typeof LivereTower === 'object') {
+    window.LivereTower.init()
+  }
+  else {
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  }
+}
+
+if ('Valine' === 'Livere' || !false) {
+  if (false) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+  else loadLivere()
+}
+else {
+  function loadOtherComment () {
+    loadLivere()
+  }
+}</script></div><script id="canvas_nest" defer="defer" color="176,224,230" opacity="0.7" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

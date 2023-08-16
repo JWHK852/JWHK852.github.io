@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="zh-TW" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Python28-模塊 | D.VaGary</title><meta name="keywords" content="Python"><meta name="author" content="D.VaGary"><meta name="copyright" content="D.VaGary"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="概述  目前代碼比較少，寫在一個文件中還體現不出什麼缺點，但是隨著代碼量越來越多，代碼就越來越難以維護，為了解決難以維護的問題，我們把很多相似功能的函數分組，分別放到不同文件夾中，這樣每個文件所包含的內容相對較少，而且對於每一個文件的大致功能可以用文件夾來體現，很多編程語言都是這麼來組織代碼結構，一個.py文件就是一個模塊   優點  提高代碼可維護度 提高了代碼的的複用度，當一個模塊完畢，可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python28-模塊">
+<meta property="og:url" content="https://blog.dvagary.com/2020/08/13/python28/index.html">
+<meta property="og:site_name" content="D.VaGary">
+<meta property="og:description" content="概述  目前代碼比較少，寫在一個文件中還體現不出什麼缺點，但是隨著代碼量越來越多，代碼就越來越難以維護，為了解決難以維護的問題，我們把很多相似功能的函數分組，分別放到不同文件夾中，這樣每個文件所包含的內容相對較少，而且對於每一個文件的大致功能可以用文件夾來體現，很多編程語言都是這麼來組織代碼結構，一個.py文件就是一個模塊   優點  提高代碼可維護度 提高了代碼的的複用度，當一個模塊完畢，可以">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg">
+<meta property="article:published_time" content="2020-08-13T03:52:37.000Z">
+<meta property="article:modified_time" content="2020-08-14T05:01:49.068Z">
+<meta property="article:author" content="D.VaGary">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg"><link rel="shortcut icon" href="/img/icon.png"><link rel="canonical" href="https://blog.dvagary.com/2020/08/13/python28/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查詢的內容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '複製成功',
+    error: '複製錯誤',
+    noSupport: '瀏覽器不支援'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '剛剛',
+    min: '分鐘前',
+    hour: '小時前',
+    day: '天前',
+    month: '個月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切換為繁體","cht_to_chs":"你已切換為簡體","day_to_night":"你已切換為深色模式","night_to_day":"你已切換為淺色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Python28-模塊',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-08-14 13:01:49'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><script src="../live2d-widget/autoload.js"></script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">載入中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">102</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">39</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">5</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 檔案室</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 關於我</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娛樂</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 遊戲</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相冊</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 電影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 鏈接區</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">D.VaGary</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜尋</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 檔案室</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 關於我</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娛樂</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 遊戲</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相冊</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 電影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 鏈接區</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python28-模塊</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">發表於</span><time class="post-meta-date-created" datetime="2020-08-13T03:52:37.000Z" title="發表於 2020-08-13 11:52:37">2020-08-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新於</span><time class="post-meta-date-updated" datetime="2020-08-14T05:01:49.068Z" title="更新於 2020-08-14 13:01:49">2020-08-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%A8%88%E7%AE%97%E6%A9%9F%E8%AA%9E%E8%A8%80/">計算機語言</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python28-模塊"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">閱讀量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h1>
+<ul>
+<li>目前代碼比較少，寫在一個文件中還體現不出什麼缺點，但是隨著代碼量越來越多，代碼就越來越難以維護，為了解決難以維護的問題，我們把很多相似功能的函數分組，分別放到不同文件夾中，這樣每個文件所包含的內容相對較少，而且對於每一個文件的大致功能可以用文件夾來體現，很多編程語言都是這麼來組織代碼結構，一個<code>.py</code>文件就是一個模塊</li>
+</ul>
+<h1 id="優點"><a class="markdownIt-Anchor" href="#優點"></a> 優點</h1>
+<ol>
+<li>提高代碼可維護度</li>
+<li>提高了代碼的的複用度，當一個模塊完畢，可以被多個地方引用</li>
+<li>引用其他的模塊（內置模塊/第三方模塊/自定義模塊）</li>
+<li>避免函數名和變量名的衝突</li>
+</ol>
+<h1 id="使用標準庫中的模塊"><a class="markdownIt-Anchor" href="#使用標準庫中的模塊"></a> 使用標準庫中的模塊</h1>
+<h2 id="導入庫"><a class="markdownIt-Anchor" href="#導入庫"></a> 導入庫</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br></pre></td></tr></table></figure>
+<h2 id="sysargv"><a class="markdownIt-Anchor" href="#sysargv"></a> sys.argv</h2>
+<ul>
+<li>獲取命令行參數的列表</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 引用模塊</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(sys.argv)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 獲取命令行參數的列表</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> sys.argv:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"></span><br><span class="line">name = sys.argv[<span class="number">1</span>]</span><br><span class="line">age = sys.argv[<span class="number">2</span>]</span><br><span class="line">hoby = sys.argv[<span class="number">3</span>]</span><br><span class="line"><span class="built_in">print</span>(name, age, hobby)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>結果:<br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/Snipaste_2020-08-13_12-20-16.png" alt="" /></li>
+</ul>
+<h2 id="syspath"><a class="markdownIt-Anchor" href="#syspath"></a> sys.path</h2>
+<ul>
+<li>自動查找所需模塊的路徑的列表</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(sys.path)</span><br></pre></td></tr></table></figure>
+<h1 id="使用自定義模塊"><a class="markdownIt-Anchor" href="#使用自定義模塊"></a> 使用自定義模塊</h1>
+<h2 id="建立一個模塊"><a class="markdownIt-Anchor" href="#建立一個模塊"></a> 建立一個模塊</h2>
+<ul>
+<li>一個.py就是一個模塊</li>
+<li>建立一個<code>jerry.py</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sayHW</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Hello world&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sayNy</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Nyoooom&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sayWow</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;WOW&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="引入自定義模塊"><a class="markdownIt-Anchor" href="#引入自定義模塊"></a> 引入自定義模塊</h2>
+<h3 id="方法一"><a class="markdownIt-Anchor" href="#方法一"></a> 方法一</h3>
+<h4 id="格式"><a class="markdownIt-Anchor" href="#格式"></a> 格式</h4>
+<h5 id="模塊導入格式"><a class="markdownIt-Anchor" href="#模塊導入格式"></a> 模塊導入格式</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> module1[, module2][, module3][, ...][, modulen]</span><br></pre></td></tr></table></figure>
+<h5 id="模塊使用格式"><a class="markdownIt-Anchor" href="#模塊使用格式"></a> 模塊使用格式</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">模塊名.函數名/變量名</span><br></pre></td></tr></table></figure>
+<h4 id="引入並執行"><a class="markdownIt-Anchor" href="#引入並執行"></a> 引入並執行</h4>
+<ul>
+<li><code>test.py</code>要引用<code>jerry模塊</code></li>
+</ul>
+<div class="note default flat"><p><code>test.py</code>與<code>jerry.py</code>在同一目錄下</p>
+</div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jerry</span><br><span class="line">jerry.sayWow()</span><br><span class="line"></span><br><span class="line">結果：</span><br><span class="line">WOW</span><br></pre></td></tr></table></figure>
+<h3 id="方法二"><a class="markdownIt-Anchor" href="#方法二"></a> 方法二</h3>
+<ul>
+<li>作用：從模塊中導入一個指定的部分到當前命名空間</li>
+</ul>
+<h4 id="格式-2"><a class="markdownIt-Anchor" href="#格式-2"></a> 格式</h4>
+<h5 id="模塊導入格式-2"><a class="markdownIt-Anchor" href="#模塊導入格式-2"></a> 模塊導入格式</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> module <span class="keyword">import</span> name1[, name2][, name3][, ...][, nameN]</span><br></pre></td></tr></table></figure>
+<h5 id="模塊使用格式-2"><a class="markdownIt-Anchor" href="#模塊使用格式-2"></a> 模塊使用格式</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">模塊名.函數名/變量名</span><br></pre></td></tr></table></figure>
+<h4 id="引入並執行-2"><a class="markdownIt-Anchor" href="#引入並執行-2"></a> 引入並執行</h4>
+<ul>
+<li><code>test.py</code>要引用<code>jerry模塊</code></li>
+</ul>
+<div class="note default flat"><p><code>test.py</code>與<code>jerry.py</code>在同一目錄下</p>
+</div>
+<div class="note warning flat"><p>只會引用<code>sayNy()</code>這個函數</p>
+</div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jerry <span class="keyword">import</span> sayNy</span><br><span class="line">sayNy()</span><br><span class="line"></span><br><span class="line">結果：</span><br><span class="line">Nyoooom</span><br></pre></td></tr></table></figure>
+<h3 id="方法三"><a class="markdownIt-Anchor" href="#方法三"></a> 方法三</h3>
+<ul>
+<li>作用：把一個模塊中所有的內容導入當前命名空間</li>
+</ul>
+<h4 id="格式-3"><a class="markdownIt-Anchor" href="#格式-3"></a> 格式</h4>
+<h5 id="模塊導入格式-3"><a class="markdownIt-Anchor" href="#模塊導入格式-3"></a> 模塊導入格式</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> module <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
+<h5 id="模塊使用格式-3"><a class="markdownIt-Anchor" href="#模塊使用格式-3"></a> 模塊使用格式</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">模塊名.函數名/變量名</span><br></pre></td></tr></table></figure>
+<h4 id="引入並執行-3"><a class="markdownIt-Anchor" href="#引入並執行-3"></a> 引入並執行</h4>
+<ul>
+<li><code>test.py</code>要引用<code>jerry模塊</code></li>
+</ul>
+<div class="note default flat"><p><code>test.py</code>與<code>jerry.py</code>在同一目錄下</p>
+</div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jerry <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sayWow()</span><br><span class="line">sayHW()</span><br><span class="line"></span><br><span class="line">結果：</span><br><span class="line">WOW</span><br><span class="line">Hello world</span><br></pre></td></tr></table></figure>
+<h1 id="__name__屬性"><a class="markdownIt-Anchor" href="#__name__屬性"></a> __name__屬性</h1>
+<ul>
+<li>模塊就是一個可執行的<code>.py</code>文件，一個模塊被另一個程序引入，如果不想模塊中某些代碼執行，可以用<code>__name__</code>屬性來使程序僅調用模塊的一部分</li>
+<li>每一個<code>.py</code>文件都有<code>__name__</code>屬性，當其屬性等於<code>&quot;__main__&quot;</code>時，表明該模塊自身在執行，否則被引入其他文件</li>
+<li>當前文件如果為程序的入口文件，則<code>__name__</code>屬性的值為<code>&quot;__main__&quot;</code></li>
+</ul>
+<h2 id="修改模塊"><a class="markdownIt-Anchor" href="#修改模塊"></a> 修改模塊</h2>
+<h3 id="修改前"><a class="markdownIt-Anchor" href="#修改前"></a> 修改前</h3>
+<blockquote>
+<p>修改前的<code>jerry.py</code></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sayHW</span>():</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;Hello world&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sayNy</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Nyoooom&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sayWow</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;WOW&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;This is Jerry module&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="修改後"><a class="markdownIt-Anchor" href="#修改後"></a> 修改後</h3>
+<blockquote>
+<p>修改後的<code>jerry.py</code></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;This is Jerry module&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>: </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sayHW</span>():</span><br><span class="line">    	<span class="built_in">print</span>(<span class="string">&quot;Hello world&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sayNy</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Nyoooom&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sayWow</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;WOW&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="使用模塊"><a class="markdownIt-Anchor" href="#使用模塊"></a> 使用模塊</h2>
+<h3 id="使用修改前的模塊"><a class="markdownIt-Anchor" href="#使用修改前的模塊"></a> 使用修改前的模塊</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jerry</span><br><span class="line"></span><br><span class="line">jerry.sayNy()</span><br><span class="line"></span><br><span class="line">結果：</span><br><span class="line">This <span class="keyword">is</span> Jerry module</span><br><span class="line">Nyoooom</span><br></pre></td></tr></table></figure>
+<h3 id="使用修改後的模塊"><a class="markdownIt-Anchor" href="#使用修改後的模塊"></a> 使用修改後的模塊</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jerry</span><br><span class="line"></span><br><span class="line">jerry.sayNy()</span><br><span class="line"></span><br><span class="line">結果：</span><br><span class="line">Nyoooom  <span class="comment"># 沒有打印&quot;This is Jerry module&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="安装第三方模块"><a class="markdownIt-Anchor" href="#安装第三方模块"></a> 安装第三方模块</h1>
+<ul>
+<li>安装第三方模块，需要知道模块的名字</li>
+</ul>
+<h2 id="安装pillow"><a class="markdownIt-Anchor" href="#安装pillow"></a> 安装Pillow</h2>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pillow</span><br></pre></td></tr></table></figure>
+<h2 id="使用pillow"><a class="markdownIt-Anchor" href="#使用pillow"></a> 使用Pillow</h2>
+<p><img src="https://raw.githubusercontent.com/JWHK852/image/master/huihuicos.png" alt="" /></p>
+<center>huihuicos.png</center>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 導入Pillow庫</span></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="comment"># 打開圖片</span></span><br><span class="line">im = Image.<span class="built_in">open</span>(<span class="string">&quot;huihuicos.png&quot;</span>)</span><br><span class="line"><span class="comment"># 查看圖片信息</span></span><br><span class="line"><span class="built_in">print</span>(im.<span class="built_in">format</span>, im.size, im.mode)</span><br><span class="line"><span class="comment"># 設置圖片的大小</span></span><br><span class="line">im.thumbnail((<span class="number">100</span>, <span class="number">100</span>))</span><br><span class="line"><span class="comment"># 保存成新圖片</span></span><br><span class="line">im.save(<span class="string">&quot;temp.jpg&quot;</span>, <span class="string">&quot;JPEG&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>新的<code>temp.jpg</code><br />
+<img src="https://raw.githubusercontent.com/JWHK852/image/master/temp.jpg" alt="" /></p>
+<center>temp.jpg</center></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">D.VaGary</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章連結: </span><span class="post-copyright-info"><a href="https://blog.dvagary.com/2020/08/13/python28/">https://blog.dvagary.com/2020/08/13/python28/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版權聲明: </span><span class="post-copyright-info">本部落格所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 許可協議。轉載請註明來自 <a href="https://blog.dvagary.com" target="_blank">D.VaGary</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/08/13/python29/"><img class="prev-cover" src="https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Python29-包</div></div></a></div><div class="next-post pull-right"><a href="/2020/08/12/python27/"><img class="next-cover" src="https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python27-Time-Datetime-Calendar</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相關推薦</span></div><div class="relatedPosts-list"><div><a href="/2022/05/06/ai1/" title="AI1-簡介"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-06</div><div class="title">AI1-簡介</div></div></a></div><div><a href="/2022/05/07/ai2/" title="AI2-基础庫"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-07</div><div class="title">AI2-基础庫</div></div></a></div><div><a href="/2022/05/13/ai3/" title="AI3-機器學習-線性回歸"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-13</div><div class="title">AI3-機器學習-線性回歸</div></div></a></div><div><a href="/2022/05/25/ai4/" title="AI4-機器學習-邏輯回歸"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220507052633.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-25</div><div class="title">AI4-機器學習-邏輯回歸</div></div></a></div><div><a href="/2022/06/25/blockchain2/" title="Blockchain2-Python"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/20220626050810.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-25</div><div class="title">Blockchain2-Python</div></div></a></div><div><a href="/2020/08/25/json1/" title="Json"><img class="cover" src="https://raw.githubusercontent.com/JWHK852/image/master/json.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-25</div><div class="title">Json</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 評論</span></div><div id="comment-switch"><span class="first-comment">Valine</span><span class="switch-btn"></span><span class="second-comment">Livere</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="lv-container" data-id="city" data-uid="MTAyMC81MDA0NS8yNjUzNg=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">D.VaGary</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">102</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">39</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">5</div></a></div></div><a class="button--animated" id="card-info-btn" href="tencent://message/?uin=1761087701&amp;Site=&amp;Menu=yes"><i class="fab fa-qq"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://open.spotify.com/playlist/2JjPHBAleYRxVAqiqBRCea?si=XZ3lRmLgSDaMuIzHtIpfrA" target="_blank" title="Spotify"><i class="fab fa-spotify"></i></a><a class="social-icon" href="https://steamcommunity.com/id/dvagary" target="_blank" title="Steam"><i class="fab fa-steam"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Pixiv日榜&nbsp;&nbsp;<i class="fas fa-images"></i><br><iframe src="https://cloud.mokeyjay.com/pixiv" frameborder="0"  style="width:240px; height:380px;"></iframe></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目錄</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text"> 概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%84%AA%E9%BB%9E"><span class="toc-number">2.</span> <span class="toc-text"> 優點</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%A8%99%E6%BA%96%E5%BA%AB%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%A1%8A"><span class="toc-number">3.</span> <span class="toc-text"> 使用標準庫中的模塊</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8E%E5%85%A5%E5%BA%AB"><span class="toc-number">3.1.</span> <span class="toc-text"> 導入庫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sysargv"><span class="toc-number">3.2.</span> <span class="toc-text"> sys.argv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#syspath"><span class="toc-number">3.3.</span> <span class="toc-text"> sys.path</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E7%BE%A9%E6%A8%A1%E5%A1%8A"><span class="toc-number">4.</span> <span class="toc-text"> 使用自定義模塊</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E4%B8%80%E5%80%8B%E6%A8%A1%E5%A1%8A"><span class="toc-number">4.1.</span> <span class="toc-text"> 建立一個模塊</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E8%87%AA%E5%AE%9A%E7%BE%A9%E6%A8%A1%E5%A1%8A"><span class="toc-number">4.2.</span> <span class="toc-text"> 引入自定義模塊</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="toc-number">4.2.1.</span> <span class="toc-text"> 方法一</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F"><span class="toc-number">4.2.1.1.</span> <span class="toc-text"> 格式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A8%A1%E5%A1%8A%E5%B0%8E%E5%85%A5%E6%A0%BC%E5%BC%8F"><span class="toc-number">4.2.1.1.1.</span> <span class="toc-text"> 模塊導入格式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A8%A1%E5%A1%8A%E4%BD%BF%E7%94%A8%E6%A0%BC%E5%BC%8F"><span class="toc-number">4.2.1.1.2.</span> <span class="toc-text"> 模塊使用格式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E4%B8%A6%E5%9F%B7%E8%A1%8C"><span class="toc-number">4.2.1.2.</span> <span class="toc-text"> 引入並執行</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="toc-number">4.2.2.</span> <span class="toc-text"> 方法二</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F-2"><span class="toc-number">4.2.2.1.</span> <span class="toc-text"> 格式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A8%A1%E5%A1%8A%E5%B0%8E%E5%85%A5%E6%A0%BC%E5%BC%8F-2"><span class="toc-number">4.2.2.1.1.</span> <span class="toc-text"> 模塊導入格式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A8%A1%E5%A1%8A%E4%BD%BF%E7%94%A8%E6%A0%BC%E5%BC%8F-2"><span class="toc-number">4.2.2.1.2.</span> <span class="toc-text"> 模塊使用格式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E4%B8%A6%E5%9F%B7%E8%A1%8C-2"><span class="toc-number">4.2.2.2.</span> <span class="toc-text"> 引入並執行</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89"><span class="toc-number">4.2.3.</span> <span class="toc-text"> 方法三</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F-3"><span class="toc-number">4.2.3.1.</span> <span class="toc-text"> 格式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A8%A1%E5%A1%8A%E5%B0%8E%E5%85%A5%E6%A0%BC%E5%BC%8F-3"><span class="toc-number">4.2.3.1.1.</span> <span class="toc-text"> 模塊導入格式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A8%A1%E5%A1%8A%E4%BD%BF%E7%94%A8%E6%A0%BC%E5%BC%8F-3"><span class="toc-number">4.2.3.1.2.</span> <span class="toc-text"> 模塊使用格式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E4%B8%A6%E5%9F%B7%E8%A1%8C-3"><span class="toc-number">4.2.3.2.</span> <span class="toc-text"> 引入並執行</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#__name__%E5%B1%AC%E6%80%A7"><span class="toc-number">5.</span> <span class="toc-text"> __name__屬性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%A8%A1%E5%A1%8A"><span class="toc-number">5.1.</span> <span class="toc-text"> 修改模塊</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%89%8D"><span class="toc-number">5.1.1.</span> <span class="toc-text"> 修改前</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%BE%8C"><span class="toc-number">5.1.2.</span> <span class="toc-text"> 修改後</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%A1%8A"><span class="toc-number">5.2.</span> <span class="toc-text"> 使用模塊</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%BF%AE%E6%94%B9%E5%89%8D%E7%9A%84%E6%A8%A1%E5%A1%8A"><span class="toc-number">5.2.1.</span> <span class="toc-text"> 使用修改前的模塊</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%BF%AE%E6%94%B9%E5%BE%8C%E7%9A%84%E6%A8%A1%E5%A1%8A"><span class="toc-number">5.2.2.</span> <span class="toc-text"> 使用修改後的模塊</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97"><span class="toc-number">6.</span> <span class="toc-text"> 安装第三方模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85pillow"><span class="toc-number">6.1.</span> <span class="toc-text"> 安装Pillow</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8pillow"><span class="toc-number">6.2.</span> <span class="toc-text"> 使用Pillow</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/06/23/django5/" title="Django5-部署"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django5-部署"/></a><div class="content"><a class="title" href="/2023/06/23/django5/" title="Django5-部署">Django5-部署</a><time datetime="2023-06-22T20:31:26.000Z" title="發表於 2023-06-23 04:31:26">2023-06-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/01/cpp_pointer/" title="C++-Pointer"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003323.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++-Pointer"/></a><div class="content"><a class="title" href="/2023/05/01/cpp_pointer/" title="C++-Pointer">C++-Pointer</a><time datetime="2023-04-30T20:31:26.000Z" title="發表於 2023-05-01 04:31:26">2023-05-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/21/django4/" title="Django4-完整開發案例"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django4-完整開發案例"/></a><div class="content"><a class="title" href="/2023/04/21/django4/" title="Django4-完整開發案例">Django4-完整開發案例</a><time datetime="2023-04-20T20:31:26.000Z" title="發表於 2023-04-21 04:31:26">2023-04-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/29/cpp1/" title="C++"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003323.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++"/></a><div class="content"><a class="title" href="/2023/03/29/cpp1/" title="C++">C++</a><time datetime="2023-03-28T20:31:26.000Z" title="發表於 2023-03-29 04:31:26">2023-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/23/django2/" title="Django2-模型"><img src="https://raw.githubusercontent.com/JWHK852/image/master/20230421003440.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Django2-模型"/></a><div class="content"><a class="title" href="/2022/12/23/django2/" title="Django2-模型">Django2-模型</a><time datetime="2022-12-22T20:31:26.000Z" title="發表於 2022-12-23 04:31:26">2022-12-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://raw.githubusercontent.com/JWHK852/image/master/cf02b27f-ab1b-4a50-ad17-4aa4e0368a94.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By D.VaGary</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主題 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="閱讀模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="簡繁轉換">繁</button><button id="darkmode" type="button" title="淺色和深色模式轉換"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="單欄和雙欄切換"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="設定"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目錄"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直達評論"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到頂部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜尋</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  資料庫載入中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜尋文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : ''
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'KRwnYKvfhHUtxrxXi6EMctLn-MdYXbMMI',
+      appKey: '6Be1unBSqa33Q3Qvr57Xw9I0',
+      avatar: 'mp',
+      serverURLs: '',
+      emojiMaps: {"tv_doge":"6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png","tv_親親":"a8111ad55953ef5e3be3327ef94eb4a39d535d06.png","tv_偷笑":"bb690d4107620f1c15cff29509db529a73aee261.png","tv_再見":"180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png","tv_冷漠":"b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png","tv_發怒":"34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png","tv_發財":"34db290afd2963723c6eb3c4560667db7253a21a.png","tv_可愛":"9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png","tv_吐血":"09dd16a7aa59b77baa1155d47484409624470c77.png","tv_呆":"fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png","tv_嘔吐":"9f996894a39e282ccf5e66856af49483f81870f3.png","tv_困":"241ee304e44c0af029adceb294399391e4737ef2.png","tv_壞笑":"1f0b87f731a671079842116e0991c91c2c88645a.png","tv_大佬":"093c1e2c490161aca397afc45573c877cdead616.png","tv_大哭":"23269aeb35f99daee28dda129676f6e9ea87934f.png","tv_委屈":"d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png","tv_害羞":"a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png","tv_尷尬":"7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png","tv_微笑":"70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png","tv_思考":"90cf159733e558137ed20aa04d09964436f618a1.png","tv_驚嚇":"0d15c7e2ee58e935adc6a7193ee042388adc22af.png"},
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function loadLivere () {
+  if (typeof LivereTower === 'object') {
+    window.LivereTower.init()
+  }
+  else {
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  }
+}
+
+if ('Valine' === 'Livere' || !false) {
+  if (false) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+  else loadLivere()
+}
+else {
+  function loadOtherComment () {
+    loadLivere()
+  }
+}</script></div><script id="canvas_nest" defer="defer" color="176,224,230" opacity="0.7" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
